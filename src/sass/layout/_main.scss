@@ -1,4 +1,4 @@
-/* container - контейнер состягується на весь екран */
+/* container - контейнер созтягується на весь екран */
 .container{
     padding-left: 15px;
     padding-right: 15px;
@@ -8,15 +8,16 @@
 
 /* div - блок для контенту */
 .gallery__container {
+    // border-top: 1px solid tomato;
     width: 100%;
-    max-width: 320px;
+    max-width: 280px;
     margin: 0 auto;
 
     @include tablet {
-        max-width: 768px;
+        max-width: calc( 336 * 2 + 32 );
     }
     @include desktop {
-        max-width: 1280px;
+        max-width: calc( 395 * 3 + 16 * 2 );
     }
 }
 
@@ -26,8 +27,9 @@
 .card-list {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
     gap: 20px;
-    justify-content: center;
+    // justify-content: center;
     /* відступ вниз 20 */
 
     @include tablet {
@@ -35,7 +37,7 @@
         /* відступ вниз 32 */
     }
     @include desktop {
-        gap: 16px;
+        column-gap: 16px;
         /* відступ вниз 32 */
     }
 }

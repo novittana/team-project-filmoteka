@@ -1,29 +1,30 @@
-'use strict';
-
+// // Toma K
 
 // // шукаю елементи
-const galleryCardList = document.querySelector('.gallery__card-list');
+const CardListMain = document.querySelector('.card-list__main');
 // console.log('galleryCardList', galleryCardList);
 
 
-// // створюю рзмітку карток фільмів для галереї (приймає results: відповідь сервера > response.data.results)
-createGallery = (results)=>{
+// // створюю рзмітку карток фільмів для галереї Функція приймає results: (відповідь сервера > response.data.results)
+createMainGallery = (results)=>{
 
     return results.map( el => {
-        const {id, poster_path, title, genre_ids, release_date} = el;
-        console.log('4', id, poster_path, title, genre_ids, release_date );
+        const {id, poster_path, title, genre_ids, release_date, vote_average} = el;
+        console.log('4', id, poster_path, title, genre_ids, release_date, vote_average );
+        const year = new Date(release_date).getFullYear();
+
         return `
             <li class="card-list__item">
                 <img class="card-list__img" data-id="${id}" src="https://image.tmdb.org/t/p/w500${poster_path}" alt=" ${title} ">
                 <h3 class="card-list__info card-list__title">${title}</h1>
-                <p class="card-list__info card-list__text">${genre_ids} |  ${release_date} </p>
+                <p class="card-list__info card-list__text">${genre_ids} |  ${year} </p>
+                <div class="card-list__rate">${vote_average}</div>
             </li>`
     } ).join('')
 }
 
 
-
-// Запрос для отримання списку найпопулярніших фільмів на сьогодні
+// Запит для отримання списку найпопулярніших зараз фільмів
 // https://api.themoviedb.org/3/trending/movie/day?api_key=a95ff59f8d48ac961c2785119723c43c
 
 
@@ -48,19 +49,14 @@ const api = {
 }
 
 
-
-
-// // активую запит на сервер >> формую html картки фільмів >> записую в галерею
+// активую запит на сервер  для отримання актуальних трендових фільмів для main gallery >> формую html картки фільмів >> записую в галерею
 api.request()
 .then( response => {
   // console.log('2', response);
     const movies = response.data.results;
     // console.log('3', movies);
 
-    const moviesHtml = createGallery(movies);
-    console.log('5', moviesHtml);
-    galleryCardList.innerHTML = moviesHtml;
+    const moviesHtml = createMainGallery(movies);
+    // console.log('5', moviesHtml);
+    CardListMain.innerHTML = moviesHtml;
 })
-
-
-
