@@ -31,16 +31,12 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     gap: 20px;
-    // justify-content: center;
-    /* відступ вниз 20 */
 
     @include tablet {
         gap: 32px;
-        /* відступ вниз 32 */
     }
     @include desktop {
         column-gap: 16px;
-        /* відступ вниз 32 */
     }
 }
 
@@ -49,12 +45,6 @@
     width: 100%;
     max-width: 280px;
     height: 443px;
-
-    /* border-radius: 24px;
-    padding-top: 123px;
-    padding-right: 39px;
-    padding-bottom: 16px;
-    padding-left: 39px; */
 
     position: relative;
 
@@ -87,7 +77,8 @@
 }
 
 /* - властивості фільму - назва жанр рік */
-.card-list__info {
+.card-list__title,
+.card-list__text {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 500;
@@ -123,3 +114,30 @@
     color: #FF6B08;
 }
 
+// позиіонування жанрів, року і рейтингу в 1 строчку
+.card-list__info{
+    display: inline-flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.card-list__rate-box{
+    width: 40px;
+    height: 20px;
+
+    background: #FF6B01;
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-list__rate{
+    font-family: 'Roboto';
+    font-size: 12px;
+    line-height: 14px;
+    text-transform: uppercase;
+
+    color: #FFFFFF;
+}
