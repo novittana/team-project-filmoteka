@@ -1,0 +1,9 @@
+import './js/movie-api';
+import './js/search-field';
+import './js/filter';
+import './js/create-card-main';
+import './js/create-card-library';
+import './js/modal-film-info';
+import './js/modal-trailer';
+import './js/pagination';
+import './js/modal-footer';
