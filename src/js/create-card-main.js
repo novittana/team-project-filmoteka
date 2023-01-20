@@ -6,11 +6,11 @@ const CardListMain = document.querySelector('.card-list__main');
 
 
 // // створюю рзмітку карток фільмів для галереї Функція приймає results: (відповідь сервера > response.data.results)
-createMainGallery = (results)=>{
+createMainMain = (results)=>{
 
     return results.map( el => {
-        const {id, poster_path, title, genre_ids, release_date, vote_average} = el;
-        console.log('4', id, poster_path, title, genre_ids, release_date, vote_average );
+        const {id, poster_path, title, genre_ids, release_date} = el;
+        console.log('4', id, poster_path, title, genre_ids, release_date );
         const year = new Date(release_date).getFullYear();
 
         return `
@@ -18,7 +18,6 @@ createMainGallery = (results)=>{
                 <img class="card-list__img" data-id="${id}" src="https://image.tmdb.org/t/p/w500${poster_path}" alt=" ${title} ">
                 <h3 class="card-list__info card-list__title">${title}</h1>
                 <p class="card-list__info card-list__text">${genre_ids} |  ${year} </p>
-                <div class="card-list__rate">${vote_average}</div>
             </li>`
     } ).join('')
 }
@@ -38,7 +37,7 @@ const api = {
   API_KEY: 'a95ff59f8d48ac961c2785119723c43c',
 
   request (){
-    // console.log('1 start request');
+    console.log('1 start request');
     return axios.get(`${this.BASE_URL}3/trending/movie/day`, {
       params: {
         api_key: this.API_KEY,
