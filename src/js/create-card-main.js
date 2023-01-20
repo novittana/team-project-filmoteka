@@ -11,7 +11,7 @@ createGallery = (results)=>{
 
     return results.map( el => {
         const {id, poster_path, title, genre_ids, release_date} = el;
-        console.log('4', id, poster_path, title, genre_ids, release_date );
+        // console.log('4', id, poster_path, title, genre_ids, release_date );
         return `
             <li class="card-list__item">
                 <img class="card-list__img" data-id="${id}" src="https://image.tmdb.org/t/p/w500${poster_path}" alt=" ${title} ">
@@ -58,7 +58,7 @@ api.request()
     // console.log('3', movies);
 
     const moviesHtml = createGallery(movies);
-    console.log('5', moviesHtml);
+    // console.log('5', moviesHtml);
     galleryCardList.innerHTML = moviesHtml;
 })
 
