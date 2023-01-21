@@ -1,6 +1,9 @@
-/* container - контейнер состягується на весь екран */
+// // Toma K
+
+/* container - контейнер созтягується на весь екран */
 .container{
-    padding-left: 15px;
+    // display: flex;
+    padding: 15px;
     padding-right: 15px;
 
     background-color: #ffffff;
@@ -8,49 +11,46 @@
 
 /* div - блок для контенту */
 .gallery__container {
+    // border-top: 1px solid tomato;
     width: 100%;
-    max-width: 320px;
+    max-width: 480px;
     margin: 0 auto;
+    
+    padding: 15px;
+    padding-right: 15px;
+
 
     @include tablet {
-        max-width: 768px;
+        max-width: calc( 336 * 2 + 32 + 30 );
     }
     @include desktop {
-        max-width: 1280px;
+        max-width: calc( 395 * 3 + 16 * 2 + 30 );
     }
 }
 
 /* h2 - заголовок секції */
+/* is-hidden */
 
 /* ul - контейнер для списку фільмів*/
 .card-list {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
     gap: 20px;
-    justify-content: center;
-    /* відступ вниз 20 */
 
     @include tablet {
         gap: 32px;
-        /* відступ вниз 32 */
     }
     @include desktop {
-        gap: 16px;
-        /* відступ вниз 32 */
+        column-gap: 16px;
     }
 }
 
 /* li - елемент списку фільмів */
 .card-list__item {
     width: 100%;
-    max-width: 280px;
-    height: 443px;
-
-    /* border-radius: 24px;
-    padding-top: 123px;
-    padding-right: 39px;
-    padding-bottom: 16px;
-    padding-left: 39px; */
+    max-width: 480px;
+    // height: 443px;
 
     position: relative;
 
@@ -67,8 +67,8 @@
 /* - обкладинка фільму - назва жанр рік */
 .card-list__img {
     width: 100%;
-    height: 100%;
-    max-height: 402px;
+    // height: 100%;
+    // max-height: 402px;
 
     border-radius: 5px;
     background: #E5E5E5;
@@ -83,7 +83,8 @@
 }
 
 /* - властивості фільму - назва жанр рік */
-.card-list__info {
+.card-list__title,
+.card-list__text {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 500;
@@ -119,3 +120,30 @@
     color: #FF6B08;
 }
 
+// позиіонування жанрів, року і рейтингу в 1 строчку
+.card-list__info{
+    display: inline-flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.card-list__rate-box{
+    width: 40px;
+    height: 20px;
+
+    background: #FF6B01;
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-list__rate{
+    font-family: 'Roboto';
+    font-size: 12px;
+    line-height: 14px;
+    text-transform: uppercase;
+
+    color: #FFFFFF;
+}
