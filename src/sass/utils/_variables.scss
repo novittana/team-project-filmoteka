@@ -7,5 +7,9 @@ $color: (
   'button-active-color': #ff6b01,
 );
 
+@function getColor($key) {
+  @return map-get($color, $key);
+};
+
 $time-hover: 250ms;
 $time-function: cubic-bezier(0.4, 0, 0.2, 1);

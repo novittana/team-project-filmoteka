@@ -1,5 +1,14 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
 
+body {
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+  background-color: getColor('background-color');
+  &.no-scroll {
+    overflow: hidden;
+  }
+}
+
 h1,
 h2,
 h3,
@@ -42,4 +51,22 @@ img {
   transition: color $time-hover $time-function,
     background-color $time-hover $time-function,
     border-color $time-hover $time-function;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 1;
+  transition: opacity $time-hover $time-function,
+    visibility $time-hover $time-function;
+  &.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
 }
