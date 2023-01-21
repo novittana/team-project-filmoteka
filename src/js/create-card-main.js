@@ -9,6 +9,7 @@ const CardListMain = document.querySelector('.card-list__main');
 createGalleryMain = (results)=>{
 
     return results.map( el => {
+
         const {id, poster_path, title, genre_ids, release_date, vote_average} = el;
         // console.log('4', id, poster_path, title, genre_ids, release_date, vote_average );
 
@@ -86,7 +87,9 @@ api.trends()
     const movies = response.data.results;
     // console.log('3', movies);
 
+
     const moviesHtml = createGalleryMain(movies);
     // console.log('5', moviesHtml);
     CardListMain.innerHTML = moviesHtml;
+
 })
