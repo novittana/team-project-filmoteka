@@ -1,8 +1,8 @@
+@import './layout/loader';
 @import './utils/variables';
 @import './common';
 @import './utils/mixins';
 @import './utils/is-hidden';
-
 @import './container';
 @import './layout/header';
 @import './layout/logo';
@@ -12,3 +12,4 @@
 @import './layout/pagination';
 @import './layout/footer';
 @import './layout/modal-footer';
+
