@@ -19,9 +19,11 @@ createGalleryMain = (results)=>{
 
         return `
             <li class="card-list__item">
-                <img class="card-list__img" data-id="${id}" src="https://image.tmdb.org/t/p/w500${poster_path}" alt=" ${title} ">
-                <h3 class="card-list__title">${title}</h1>
-                <p class="card-list__text">${genre} |  ${year} </p>
+                <a href="#" class="card-list_link" id="${id}">
+                  <img class="card-list__img" data-id="${id}" src="https://image.tmdb.org/t/p/w500${poster_path}" alt=" ${title} ">
+                  <h3 class="card-list__title">${title}</h1>
+                  <p class="card-list__text">${genre} |  ${year} </p>
+                </a>
             </li>`
     } ).join('')
 }

@@ -18,12 +18,14 @@ createGalleryLibrary = (results)=>{
 
         return `
         <li class="card-list__item">
-            <img class="card-list__img" data-id="${id}" src="https://image.tmdb.org/t/p/w500${poster_path}" alt=" ${title} ">
-            <h3 class="card-list__title">${title}</h1>
-            <div class="card-list__info">
-                <p class="card-list__text">${genre} |  ${year} </p>
-                <div class="card-list__rate-box"><p class="card-list__rate">${average}</p></div>
-            </div>
+            <a href="#" class="card-list_link" id="${id}">
+                <img class="card-list__img" data-id="${id}" src="https://image.tmdb.org/t/p/w500${poster_path}" alt=" ${title} ">
+                <h3 class="card-list__title">${title}</h1>
+                <div class="card-list__info">
+                    <p class="card-list__text">${genre} |  ${year} </p>
+                    <div class="card-list__rate-box"><p class="card-list__rate">${average}</p></div>
+                </div>
+            </a>
         </li>`
     } ).join('')
 }
