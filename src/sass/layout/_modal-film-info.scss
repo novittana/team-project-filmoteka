@@ -25,7 +25,7 @@
   z-index: 150;
   top: 50%;
   left: 50%;
-
+  padding: 20px 48px 20px 20px;
   width: 280px;
   height: 940px;
   background-color: #ffffff;
@@ -102,8 +102,6 @@
   }
 }
 .description-modal_title {
-  font-family: 'Roboto';
-  font-style: normal;
   font-weight: 500;
   font-size: 30px;
   line-height: 1.17;
