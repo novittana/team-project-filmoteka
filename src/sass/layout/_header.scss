@@ -126,11 +126,16 @@ header {
     width: 394px;
   }
 }
-
-.input-wrapper > svg {
+.input-wrapper > button {
   position: absolute;
   top: 0;
   right: 0;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.input-wrapper svg {
   width: 12px;
   height: 12px;
 }
@@ -139,13 +144,25 @@ header {
   color: #ffffff;
 }
 
+.notify {
+  margin: 16px auto 0;
+  height: 32px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.14;
+  color: getColor('notify-failure-color');
+  @include tablet {
+    width: 394px;
+    height: 16px;
+  }
+}
+
 .menu__link {
   position: relative;
   color: #ffffff;
 }
 
-
-.menu__link-active::after{
+.menu__link-active::after {
   content: '';
   position: absolute;
   top: 19px;

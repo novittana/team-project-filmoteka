@@ -6,7 +6,7 @@ const CardListMain = document.querySelector('.card-list__main');
 
 
 // // створюю рзмітку карток фільмів для галереї Функція приймає results: (відповідь сервера > response.data.results)
-createGalleryMain = (results)=>{
+export const createGalleryMain = (results)=>{
 
     return results.map( el => {
 

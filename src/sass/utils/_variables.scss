@@ -5,6 +5,7 @@ $color: (
   'background-color': #ffffff,
   'second-background-color': #f7f7f7,
   'button-active-color': #ff6b01,
+  'notify-failure-color': #FF001B,
 );
 
 @function getColor($key) {
