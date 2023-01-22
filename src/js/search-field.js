@@ -1,5 +1,5 @@
 import { MovieAPI } from './movie-api';
-import { createGalleryMain } from './create-card-main';
+import { createGallery } from './create-card';
 import { createPagination } from './pagination';
 
 const api = new MovieAPI();
@@ -32,7 +32,7 @@ function getMoviesByKeyWord(keyWord, page) {
       }
       galleryEl.insertAdjacentHTML(
         'beforeend',
-        createGalleryMain(movies.results)
+        createGallery(movies.results)
       );
       return movies;
     })
