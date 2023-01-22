@@ -29,11 +29,12 @@ export class MovieAPI {
    * @param  {string} keyWord description
    * @return {JSON}  obj response
    */
-  async getFilmListByKeyWord(keyWord) {
+  async getFilmListByKeyWord(keyWord, page) {
     const response = await axios.get(`${MovieAPI.BASE_URL}3/search/movie`, {
       params: {
         api_key: MovieAPI.API_KEY,
         query: keyWord,
+        page: page,
       },
     });
 
