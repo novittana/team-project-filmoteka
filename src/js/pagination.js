@@ -1,6 +1,11 @@
 import Pagination from 'tui-pagination';
 import sprite from '../images/sprite-icons.svg';
 
+//Создание пагинации
+//totalItems - общее количество фильмов
+//itemsPerPage - количество фильмов отображаемое на одной странице
+//visiblePages - количество отображаемых номеров страниц в пагинации
+//page - номер страницы
 export function createPagination(totalItems, itemsPerPage, visiblePages, page) {
   const container = document.getElementById('tui-pagination-container');
   const options = {

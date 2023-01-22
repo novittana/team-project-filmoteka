@@ -19,12 +19,13 @@ function onLoadMovies(e) {
   getMoviesByKeyWord(keyWord, 1);
 }
 
+//Поиск и отображение фильмов по ключевому слову и отрисовка пагинации
 function getMoviesByKeyWord(keyWord, page) {
   galleryEl.innerHTML = '';
 
   api
     .getFilmListByKeyWord(keyWord, page)
-    .then(movies => {
+    .then(movies => { //Создание галереи по результатам запроса
       if (movies.results.length === 0) {
         notifyEl.insertAdjacentText('beforeend', 'Search result not successful. Enter the correct movie name and');
         return movies;
@@ -35,7 +36,7 @@ function getMoviesByKeyWord(keyWord, page) {
       );
       return movies;
     })
-    .then(movies => {
+    .then(movies => { //Отрисовка пагинации
       if (!paginationEl.childNodes.length) {
         const pagination = createPagination(
           movies.total_results,
