@@ -1,12 +1,16 @@
 // // Toma K
 
+// // // Періменувала функцію createGalleryMain в createGallery
+
 // // шукаю елементи
 const CardListMain = document.querySelector('.card-list__main');
-// console.log('galleryCardList', galleryCardList);
+
+const actionPage  = document.querySelector('.menu__link-active');
+console.dir(actionPage.dataset.action);
 
 
 // // створюю рзмітку карток фільмів для галереї Функція приймає results: (відповідь сервера > response.data.results)
-createGalleryMain = (results)=>{
+createGallery = (results)=>{
 
     return results.map( el => {
 
@@ -17,14 +21,33 @@ createGalleryMain = (results)=>{
         const average = vote_average.toFixed(2);
         const genre = genre_ids.slice(0, 2).map( el => ' ' + api.genreList[el] );
 
-        return `
-            <li class="card-list__item">
-                <a href="#" class="card-list_link" id="${id}">
-                  <img class="card-list__img" data-id="${id}" src="https://image.tmdb.org/t/p/w500${poster_path}" alt=" ${title} ">
-                  <h3 class="card-list__title">${title}</h1>
+        const main = `
+          <li class="card-list__item">
+            <a href="#" class="card-list_link" id="${id}">
+              <img class="card-list__img" data-id="${id}" src="https://image.tmdb.org/t/p/w500${poster_path}" alt=" ${title} ">
+              <h3 class="card-list__title">${title}</h1>
+              <p class="card-list__text">${genre} |  ${year} </p>
+            </a>
+          </li>`;
+
+        const library = `
+          <li class="card-list__item">
+            <a href="#" class="card-list_link" id="${id}">
+              <img class="card-list__img" data-id="${id}" src="https://image.tmdb.org/t/p/w500${poster_path}" alt=" ${title} ">
+              <h3 class="card-list__title">${title}</h1>
+              <div class="card-list__info">
                   <p class="card-list__text">${genre} |  ${year} </p>
-                </a>
-            </li>`
+                  <div class="card-list__rate-box"><p class="card-list__rate">${average}</p></div>
+              </div>
+            </a>
+          </li>`;
+
+        if (actionPage.dataset.action === 'library'){
+          return library
+        }
+
+        return main
+
     } ).join('')
 }
 
@@ -90,7 +113,7 @@ api.trends()
     // console.log('3', movies);
 
 
-    const moviesHtml = createGalleryMain(movies);
+    const moviesHtml = createGallery(movies);
     // console.log('5', moviesHtml);
     CardListMain.innerHTML = moviesHtml;
 
