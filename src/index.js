@@ -10,9 +10,10 @@ import './js/pagination';
 import './js/modal-footer';
 
 
-// import { MovieAPI } from './js/movie-api';
+import { MovieAPI } from './js/movie-api';
 
-// var testApi = new MovieAPI();
-// testApi.getPopularFilmList().then(filmList => {
-//   console.log(filmList);
-// });
+var testApi = new MovieAPI();
+testApi.getPopularFilmList(1).then(filmList => {
+  console.log(filmList);
+});
+

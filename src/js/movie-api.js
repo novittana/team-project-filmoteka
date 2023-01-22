@@ -83,6 +83,7 @@ export class MovieAPI {
       console.log(error);
     }
   }
+  
 
   validateResponse(response) {
     if (!response.data) {
