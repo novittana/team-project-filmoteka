@@ -1,3 +1,4 @@
+import './js/btn-up';
 import './js/loader';
 import './js/movie-api';
 import './js/search-field';
@@ -8,6 +9,8 @@ import './js/modal-film-info';
 import './js/modal-trailer';
 import './js/pagination';
 import './js/modal-footer';
+
+
 
 
 // import { MovieAPI } from './js/movie-api';
