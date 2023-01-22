@@ -86,7 +86,7 @@ export function createGallery(results) {
         </li>`;
     })
     .join('');
-    // // = вставляю ХТМЛ розмітку створену на снові даних АПІ в UL елемент на сторынці
+    // // = вставляю ХТМЛ розмітку створену на основі даних АПІ в UL елемент на сторінці
     const cardListEl = document.querySelector('.card-list__main');
     cardListEl.innerHTML = elements;
 }
