@@ -5,9 +5,19 @@ const refs = {
     backdropEl: document.querySelector('.js-backdrop'),
     closeModalEl: document.querySelector('.js-modal-close'),
     infoCard:document.querySelector('.description-modal_info'),
-    watchedBtn:document.querySelector('.js-watched'),
-    queueBtn:document.querySelector('.js-queue'),
+     watchedBtn:document.querySelector('.js-watched'),
+     queueBtn:document.querySelector('.js-queue'),
+    //watchedBtn1:document.querySelector('.card-list_link'),
+    //queueBtn1:document.querySelector('.description-modal_info .queue'),
 };
+
+// console.log(watchedBtn1);
+// console.log(queueBtn1);
+
+
+// refs.watchedBtn1.addEventListener('click', ()=>{
+//   console.log('Hell');
+// })
 
 const movieAPI = new MovieAPI();
 
@@ -23,15 +33,17 @@ const createCards = cardInfo => {
                <img
         class="description-modal_img"
         src="https://image.tmdb.org/t/p/w500${poster_path}"
-        alt=""
+        alt="poster"
       />
-    <div>
+    <div class="description-modal_wrap">
         <h2 class="description-modal_title">${title}</h2>
         <ul class="description-modal_list">
           <li class="description-modal_item">
-            <p>Vote/Voles</p>
-            <span class="description-rating">${vote_average.toFixed(1)} </span>
-            <span> / ${vote_count}</span>
+            <p class="slash">Vote/Voles</p>
+            <div>
+              <span class="description-rating">${vote_average.toFixed(1)} </span> &nbsp;/ 
+              <span class="description-rating1">  ${vote_count}</span>
+            </di>
           </li>
           <li class="description-modal_item">
             <p>Popularity</p>
@@ -42,14 +54,15 @@ const createCards = cardInfo => {
             <span>${original_title}</span>
           </li>
           <li class="description-modal_item">
-            <p>Genre</p>
-            <span>${genresEl.join(', ')}</span>
+            <p class="genres">Genre</p>
+            <span class="genres">${genresEl.join(', ')}</span>
           </li>
           <li class="description-modal_item">
             <p class="description-modal_about">ABOUT</p>
             <p class="description-modal_about">${overview}</p>
           </li>          
-        </ul>       
+        </ul>
+            
     </div>        
             `;    
 };
