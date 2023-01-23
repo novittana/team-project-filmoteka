@@ -25,7 +25,7 @@ const runApi = async () => {
 
     // // запит для отримання списку найпопулярніших зараз фільмів 
     // // https://api.themoviedb.org/3/trending/movie/day?api_key=a95ff59f8d48ac961c2785119723c43c
-    const responseTrending = await movieApi.getPopularFilmList();
+    const responseTrending = await movieApi.getPopularFilmList(2);
     createGallery(responseTrending.results);
   } catch(err){
     console.log(err);
@@ -52,12 +52,16 @@ export function createGallery(results) {
         return `
           <li class="card-list__item">
             <a href="#" class="card-list_link" id="${id}">
-              <img class="card-list__img" data-id="${id}" src="https://image.tmdb.org/t/p/w500${poster_path}" alt=" ${title} ">
-              <h3 class="card-list__title">${title}</h1>
-              <div class="card-list__info">
-                  <p class="card-list__text">${genre} |  ${year} </p>
-                  <div class="card-list__rate-box"><p class="card-list__rate">${average}</p></div>
+              <div class="card-list__img-box">
+                <img class="card-list__img" data-id="${id}" src="https://image.tmdb.org/t/p/w500${poster_path}" alt=" ${title} ">
               </div>
+                <h3 class="card-list__title">${title}</h1>
+                <div class="card-list__info">
+                  <p class="card-list__text">${genre} |  ${year} </p>
+                  <div class="card-list__rate-box">
+                    <p class="card-list__rate">${average}</p>
+                  </div> 
+                </div>
             </a>
           </li>`;
       }
@@ -65,8 +69,10 @@ export function createGallery(results) {
       return `
         <li class="card-list__item">
           <a href="#" class="card-list_link" id="${id}">
-            <img class="card-list__img" data-id="${id}" src="https://image.tmdb.org/t/p/w500${poster_path}" alt=" ${title} ">
-            <h3 class="card-list__title">${title}</h1>
+            <div class="card-list__img-box">
+              <img class="card-list__img" data-id="${id}" src="https://image.tmdb.org/t/p/w500${poster_path}" alt=" ${title} ">
+            </div>
+            <h3 class="card-list__title">${title}</h3>
             <p class="card-list__text">${genre} |  ${year} </p>
           </a>
         </li>`;
