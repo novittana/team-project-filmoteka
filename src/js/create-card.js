@@ -25,7 +25,7 @@ const runApi = async () => {
 
     // // запит для отримання списку найпопулярніших зараз фільмів 
     // // https://api.themoviedb.org/3/trending/movie/day?api_key=a95ff59f8d48ac961c2785119723c43c
-    const responseTrending = await movieApi.getPopularFilmList(2);
+    const responseTrending = await movieApi.getPopularFilmList();
     createGallery(responseTrending.results);
   } catch(err){
     console.log(err);
