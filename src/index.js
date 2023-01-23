@@ -1,8 +1,8 @@
 import './js/btn-up';
 import './js/loader';
+import './js/filter';
 import './js/movie-api';
 import './js/search-field';
-import './js/filter';
 import './js/create-card';
 // import './js/create-card-library';
 import './js/modal-film-info';
