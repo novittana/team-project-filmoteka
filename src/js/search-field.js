@@ -15,13 +15,16 @@ function onLoadMovies(e) {
   e.preventDefault();
   const keyWord = e.target.elements.searchQuery.value.trim();
 
-  paginationEl.innerHTML = '';
-  getMoviesByKeyWord(keyWord, 1);
+  if (keyWord) {
+    paginationEl.innerHTML = '';
+    getMoviesByKeyWord(keyWord, 1);
+  }
 }
 
 //Поиск и отображение фильмов по ключевому слову и отрисовка пагинации
 function getMoviesByKeyWord(keyWord, page) {
   galleryEl.innerHTML = '';
+  notifyEl.innerHTML = '';
 
   api
     .getFilmListByKeyWord(keyWord, page)
@@ -37,7 +40,7 @@ function getMoviesByKeyWord(keyWord, page) {
       return movies;
     })
     .then(movies => { //Отрисовка пагинации
-      if (!paginationEl.childNodes.length) {
+      if (!paginationEl.childNodes.length && movies.results.length !== 0) {
         const pagination = createPagination(
           movies.total_results,
           movies.results.length,
