@@ -19,3 +19,4 @@ const refs = {
     });
 
 
+console.log("footer")
