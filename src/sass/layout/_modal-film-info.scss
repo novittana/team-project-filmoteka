@@ -76,6 +76,7 @@
 .description-modal_info {
   @include tablet {
     display: flex;
+    
   }
 }
 
@@ -115,6 +116,9 @@
 
 .description-modal_list {
   margin-bottom: 20px;
+  @include tablet {
+  //position: relative;
+  }
 }
 
 .description-modal_item {
@@ -127,6 +131,10 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 1.3;
+  color: #8c8c8c;
+}
+
+.description-modal_item:first-child {
   color: #8c8c8c;
 }
 
@@ -143,6 +151,10 @@
   line-height: 14px;
   color: #000000;
   display: inline-block;
+}
+
+.slash{
+  color: #8c8c8c;
 }
 
 span.description-rating {
@@ -171,8 +183,16 @@ p.description-modal_about {
 }
 
 .description-btn {
+ 
   display: flex;
   //justify-content: space-between;
+  @include tablet {
+    //position: absolute;
+    // top: 350px;
+    // left: 400px;
+
+    margin-left: 390px;
+  }
 }
 .description-modal_btn {
   font-weight: 500;
