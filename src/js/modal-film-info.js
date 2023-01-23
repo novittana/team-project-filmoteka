@@ -73,7 +73,7 @@ const saveToLS = (key, value) => {
   }
 };
 
-const loadToLS = key => {
+export const loadToLS = key => {
   try {
       const serializedState = localStorage.getItem(key);
       return serializedState === null ? [] : JSON.parse(serializedState);
