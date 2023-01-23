@@ -24,7 +24,7 @@
         padding-right: 32px;
         padding-top: 60px;
         padding-bottom: 60px;
-        max-width: calc( 336 * 2 + 32 + 64);
+        max-width: calc( 336 * 2 + 32 + 64 );
     }
     @include desktop {
         max-width: calc( 395 * 3 + 16 * 2 + 64 );
@@ -71,6 +71,7 @@
     // outline: 1px solid tomato;
     display: flex;
     align-items: center;
+    justify-content: center;
 
     @include tablet {
         height: 455px;
