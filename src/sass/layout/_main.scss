@@ -1,6 +1,6 @@
 // // Toma K
 
-/* container - контейнер розтягується на весь екран */
+/* section - контейнер розтягується на весь екран */
 .section__gallery{
     width: 100%;
     background-color: #ffffff;
@@ -8,7 +8,7 @@
 
 /* div - блок для контенту */
 .gallery__container {
-    outline: 1px solid tomato;
+    // outline: 1px solid tomato;
     width: 100%;
     max-width: 480px;
     margin: 0 auto;
@@ -36,7 +36,7 @@
 
 /* ul - контейнер для списку фільмів*/
 .card-list {
-    outline: 1px solid tomato;
+    // outline: 1px solid tomato;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
@@ -55,17 +55,28 @@
     // outline: 1px solid tomato;
     width: 100%;
     max-width: 480px;
-    // height: 443px;
 
     position: relative;
 
     @include tablet {
         max-width: 336px;
-        height: 495px;
     }
     @include desktop {
         max-width: 395px;
-        height: 634px;
+    }
+}
+
+/* - бокс постера фільму */
+.card-list__img-box{
+    // outline: 1px solid tomato;
+    display: flex;
+    align-items: center;
+
+    @include tablet {
+        height: 455px;
+    }
+    @include desktop {
+        height: 574px;
     }
 }
 
@@ -85,22 +96,15 @@
     }
 }
 
-
-
-.card-list__info-box{
-
-}
-
 /* div - огортає опис */
 .card-list__info-box{
     outline: 1px solid tomato;
-    height: 40px;
 }
 
 /* - властивості фільму - назва жанр рік */
 .card-list__title,
 .card-list__text {
-    outline: 1px solid tomato;
+    // outline: 1px solid tomato;
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 500;
