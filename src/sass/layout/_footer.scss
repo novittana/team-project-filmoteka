@@ -1,5 +1,5 @@
 .footer{
-background-color: #F7F7F7;
+   background-color: #F7F7F7;
 }
 
 .footer__page{
@@ -10,45 +10,40 @@ background-color: #F7F7F7;
     padding-bottom: 29.7px;
     background-color: #F7F7F7;
 
-    @include tablet {
-        max-width: 768px;
-        padding-top: 30px;
-        padding-bottom: 30px;
+@include tablet {
+    max-width: 768px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     }
-    @include desktop {
-        max-width: 1280px;
-        padding-top: 30px;
-        padding-bottom: 28px;
+@include desktop {
+    max-width: 1280px;
+    padding-top: 30px;
+    padding-bottom: 28px;
     }
 }
 
 .footer_main{
     justify-content: center;
-
-    @include tablet {
-        display: flex;
-        gap: 0px;
-        justify-content: center;
+@include tablet {
+    display: flex;
+    gap: 0px;
+    justify-content: center;
     }
- 
 }
 
 .footer-info {
     margin-top: 0;
     margin-bottom: 10px;
     color: #545454;
-
-    
     font-weight: 400;
     font-size: 14px;
     line-height: 1.14;
 
 @media screen and (max-width: 767px) {
     text-align: center;
-    
     }
 
-    @include tablet {
+@include tablet {
     font-size: 16px;
     line-height: 1.19;
     margin-bottom: 0;
@@ -59,7 +54,6 @@ background-color: #F7F7F7;
     margin-top: 0;
     margin-bottom: 0;
     color: #545454;
-
     font-weight: 400;
     font-size: 14px;
     line-height: 1.14;
@@ -84,7 +78,6 @@ background-color: #F7F7F7;
     margin-top: 0;
     margin-bottom: 0;
     color: #545454;
-
     font-weight: 400;
     font-size: 14px;
     line-height: 1.14;
@@ -96,13 +89,13 @@ background-color: #F7F7F7;
       color: #FF6B08;
     }
 
-    @media screen and (max-width: 767px) {
-        text-align: center;
-        }
+@media screen and (max-width: 767px) {
+    text-align: center;
+    }
     
-    @include tablet {
-        font-size: 16px;
-        line-height: 1.19;
-        }
+@include tablet {
+    font-size: 16px;
+    line-height: 1.19;
+    }
 }
 
