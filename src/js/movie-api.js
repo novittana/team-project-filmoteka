@@ -77,7 +77,13 @@ export class MovieAPI {
   async getFilmsByGenres() {
     try {
       const response = await axios.get(
-        `${MovieAPI.BASE_URL}3/genre/movie/list`
+        `${MovieAPI.BASE_URL}3/genre/movie/list`,
+        {
+          params: {
+            api_key: MovieAPI.API_KEY,
+            language: 'en-US',
+          },
+        }
       );
       return response.data;
     } catch (error) {
