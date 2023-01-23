@@ -40,8 +40,10 @@ const createCards = cardInfo => {
         <ul class="description-modal_list">
           <li class="description-modal_item">
             <p class="slash">Vote/Voles</p>
-            <span class="description-rating">${vote_average.toFixed(1)} </span> / 
-            <span>  ${vote_count}</span>
+            <div>
+              <span class="description-rating">${vote_average.toFixed(1)} </span> &nbsp;/ 
+              <span class="description-rating1">  ${vote_count}</span>
+            </di>
           </li>
           <li class="description-modal_item">
             <p>Popularity</p>
@@ -52,8 +54,8 @@ const createCards = cardInfo => {
             <span>${original_title}</span>
           </li>
           <li class="description-modal_item">
-            <p>Genre</p>
-            <span>${genresEl.join(', ')}</span>
+            <p class="genres">Genre</p>
+            <span class="genres">${genresEl.join(', ')}</span>
           </li>
           <li class="description-modal_item">
             <p class="description-modal_about">ABOUT</p>
