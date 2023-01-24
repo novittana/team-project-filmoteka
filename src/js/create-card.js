@@ -1,5 +1,15 @@
 // // Toma K
 
+
+// // ф. для генерації галереї при переході в бібліотеку
+import {renderWatched} from './filter';
+
+
+// // визначаю активну сторінку
+const actionPage = document.querySelector('.menu__link-active');
+
+
+// // ********************** API:
 // // встановлюю axios https://axios-http.com/uk/docs/intro
 // // $ npm install axios
 // // рефакторю >> const axios = require('axios').default; << в:
@@ -9,10 +19,11 @@
 // // об'єкт для збереження жанрів в форматі id:'genre'
 export const genreList = {};
 
+
 // // створюю з класу, з АПІ методами, об'єкт і звертаюсь до АПІ
 import {MovieAPI} from './movie-api';
 const movieApi = new MovieAPI();
-const runApi = async () => {
+const runApiGenre = async () => {
   try{
     // // запит для отримання і збереження жанрів фільмів в об'єкті в форматі id:'genre'
     // // https://api.themoviedb.org/3/genre/movie/list?api_key=a95ff59f8d48ac961c2785119723c43c&language=en-US
@@ -22,7 +33,16 @@ const runApi = async () => {
     genreArr.map(el => {
       genreList[el.id] = el.name;
     });
+  } catch(err){
+    console.log(err);
+  }
+}
+// // активую АПІ запит для отримання жанрів
+runApiGenre();
 
+
+const runApiTrending = async () => {
+  try{
     // // запит для отримання списку найпопулярніших зараз фільмів 
     // // https://api.themoviedb.org/3/trending/movie/day?api_key=a95ff59f8d48ac961c2785119723c43c
     const responseTrending = await movieApi.getPopularFilmList();
@@ -31,17 +51,28 @@ const runApi = async () => {
     console.log(err);
   }
 }
-// // активую АПІ запити
-runApi();
+runApiTrending();
 
 
-// // створюю ХТМЛ рзмітку карток фільмів для галереї, ф. приймає results: (відповідь сервера > response.data.results)
-export function createGallery(results=[]) {  
+// // ********************** логіка відображення різних галерей для гловної сторінки і бібліотеки:
+if (actionPage.dataset.action === 'library') {
+  // // активую ф. для створення галереї з переглянутих фільмів
+  renderWatched();
+} else {
+  // // активую АПІ запит для отримання списку найпопулярніших зараз фільмів
+  runApiTrending();
+}
+
+
+// // ********************** створюю ХТМЛ рзмітку галереї
+// // ф. приймає results: (відповідь сервера > response.data.results)
+export function createGallery(results={}) {  
   const elements = results.map(el => {
-      let { id, poster_path, title, genre_ids=[], release_date, vote_average } =
-        el;
+      let { id, poster_path, title, genre_ids=[], release_date, vote_average } = el;
+      console.log(genre_ids);
+
       const year = new Date(release_date).getFullYear();
-    const average = vote_average.toFixed(2);
+      const average = vote_average.toFixed(2);
       const genre = genre_ids.slice(0, 2).map(el => ' ' + genreList[el]);
       if (!poster_path){
         poster = new URL('/src/images/no-img.jpg', import.meta.url);
@@ -50,8 +81,6 @@ export function createGallery(results=[]) {
       }
 
       // // визначаю активну сторінку, якщо відкрита library формую картку з рейтингом
-      const actionPage = document.querySelector('.menu__link-active');
-
       if (actionPage.dataset.action === 'library') {
         return `
           <li class="card-list__item">

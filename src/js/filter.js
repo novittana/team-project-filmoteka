@@ -79,7 +79,7 @@ function renderAllList() {
   }
 }
 
-function renderWatched() {
+export function renderWatched() {
   document.querySelector('.gallery__container .gallery__card-list').innerHTML =
     '';
   const arrWatchedId = loadFromLS('filmWatched');
