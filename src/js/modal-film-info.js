@@ -94,8 +94,16 @@ export const loadToLS = key => {
   }
 };
 
+// refs.backdropEl.classList.add('is-hidden'); 
+// refs.watchedBtn.classList.add('is-hidden');
+
 const onModalOpen =async e => {
-    e.preventDefault(); 
+  e.preventDefault(); 
+   setTimeout(() => {
+      refs.watchedBtn.classList.remove('is-hidden');
+  refs.queueBtn.classList.remove('is-hidden');
+  }, 200)
+
     if (e.target.offsetParent.className!=="card-list__item") {
         return;
     } 
@@ -116,11 +124,15 @@ let arrFilmQueue= loadToLS('filmQueue');
 //console.log(arrFilmQueue);
 
 const onBtnWatchedClick=e=>{
-  e.preventDefault();       
+  e.preventDefault();
+    // e.target.disabled = true;
+    // e.target.classList.add('is-hidden');
   const idFilm=refs.watchedBtn.dataset.filmId
   arrFilmWatched.push(idFilm)
   const filterArrFilmWatched=arrFilmWatched.filter((value, i, arr)=>arr.indexOf(value)===i)
   saveToLS('filmWatched', filterArrFilmWatched)
+  // e.target.disabled = false;
+  // e.target.classList.remove('is-hidden');
 }
 
 const onBtnQueueClick= e=>{
@@ -132,7 +144,9 @@ const onBtnQueueClick= e=>{
 }
 
 const closeModal = () => {    
-    refs.backdropEl.classList.add('is-hidden');
+  refs.backdropEl.classList.add('is-hidden'); 
+  refs.watchedBtn.classList.add('is-hidden');
+  refs.queueBtn.classList.add('is-hidden');
     document.body.classList.remove('no-scroll');
     document.removeEventListener('keydown', onEscKeyPress);
     refs.infoCard.firstElementChild.remove();
