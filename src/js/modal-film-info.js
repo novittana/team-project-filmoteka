@@ -7,6 +7,7 @@ const refs = {
     infoCard:document.querySelector('.description-modal_info'),
      watchedBtn:document.querySelector('.js-watched'),
      queueBtn:document.querySelector('.js-queue'),
+     descraption:document.querySelector('.info'),
     //watchedBtn1:document.querySelector('.card-list_link'),
     //queueBtn1:document.querySelector('.description-modal_info .queue'),
 };
@@ -29,13 +30,15 @@ const createCards = cardInfo => {
     }
     refs.watchedBtn.dataset.filmId = id;
     refs.queueBtn.dataset.filmId = id;
-    return `
-               <img
+    const posterMarcap= `
+        <img
         class="description-modal_img"
         src="https://image.tmdb.org/t/p/w500${poster_path}"
         alt="poster"
-      />
-    <div class="description-modal_wrap">
+        width="340px"
+      />`
+
+    const infoMarcap=`<div class="description-modal_wrap">
         <h2 class="description-modal_title">${title}</h2>
         <ul class="description-modal_list">
           <li class="description-modal_item">
@@ -64,14 +67,18 @@ const createCards = cardInfo => {
         </ul>
             
     </div>        
-            `;    
+            `; 
+  return [posterMarcap, infoMarcap ]   
 };
 
 const addMoveInfo = async (id) => {
     try {
         const data = await movieAPI.getFilmFullInfo(id);
         //console.log('61',data);        
-        refs.infoCard.innerHTML = createCards(data);                  
+         const [posterMarcap, infoMarcap] = createCards(data);
+         
+         refs.infoCard.insertAdjacentHTML('afterbegin',posterMarcap);
+         refs.descraption.insertAdjacentHTML('afterbegin',infoMarcap);
     } catch (err) {
         console.log(err);
     }
@@ -147,7 +154,9 @@ const closeModal = () => {
     refs.backdropEl.classList.add('is-hidden');
     document.body.classList.remove('no-scroll');
     document.removeEventListener('keydown', onEscKeyPress);
-    refs.infoCard.innerHTML = '';
+    refs.infoCard.firstElementChild.remove();
+    refs.descraption.firstElementChild.remove();
+    //refs.infoCard.innerHTML = '';
 };
 
 const onEscKeyPress = e => {

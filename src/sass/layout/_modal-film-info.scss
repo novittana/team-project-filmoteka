@@ -96,6 +96,7 @@
   border-radius: 5px;
   object-fit: cover;
   @include tablet {
+    flex: 1;
     flex-basis:100%;
   border-radius: 5px;
   overflow: hidden;
@@ -231,15 +232,15 @@ p.description-modal_about {
   display: flex;
   //justify-content: space-between;
   @include tablet {
-    position: absolute;
-    top: 437px;
-    left: 30px;
-    margin-left: 315px;
+    // position: absolute;
+    // top: 437px;
+    // left: 30px;
+    //margin-left: 315px;
   }
   @include desktop {
-    top: 475px;
-    left: 10px;
-    margin-left: 390px;
+    // top: 475px;
+    // left: 10px;
+    // margin-left: 390px;
   }
 }
 .description-modal_btn {
