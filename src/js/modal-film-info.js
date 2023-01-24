@@ -7,28 +7,30 @@ const refs = {
     infoCard:document.querySelector('.description-modal_info'),
     watchedBtn:document.querySelector('.js-watched'),
     queueBtn:document.querySelector('.js-queue'),
-    description:document.querySelector('.info'),
-  //watchedBtn1:document.querySelector('.card-list_link'),
-  //queueBtn1:document.querySelector('.description-modal_info .queue'),
+    description: document.querySelector('.info'),
+  onTrailer: document.querySelector('.trailer'),
+    trailerIf:document.querySelector('.videoww')
 };
 
 const movieAPI = new MovieAPI();
 
 const createCards = cardInfo => {
     const { poster_path, title, vote_average, vote_count, popularity, original_title, genres, overview,id } = cardInfo
-    const genresEl = [];
+  const genresEl = [];
+  console.log(cardInfo);
     for (genre of genres) {
         genresEl.push(genre.name);        
     }
     refs.watchedBtn.dataset.filmId = id;
-    refs.queueBtn.dataset.filmId = id;
-    const posterMarkup= `
+  refs.queueBtn.dataset.filmId = id;
+  refs.onTrailer.dataset.filmId = id;
+  const posterMarkup = `
         <img
         class="description-modal_img"
         src="https://image.tmdb.org/t/p/w500${poster_path}"
         alt="poster"
         width="340px"
-      />`
+      />`;
 
     const infoMarkup=`<div class="description-modal_wrap">
         <h2 class="description-modal_title">${title}</h2>
@@ -60,6 +62,7 @@ const createCards = cardInfo => {
             
     </div>        
             `; 
+  //const videoMarkup=``
   return [posterMarkup, infoMarkup ]   
 };
 
@@ -67,10 +70,9 @@ const addMoveInfo = async (id) => {
     try {
         const data = await movieAPI.getFilmFullInfo(id);
         //console.log('61',data);        
-         const [posterMarkup, infoMarkup] = createCards(data);
-         
-         refs.infoCard.insertAdjacentHTML('afterbegin',posterMarkup);
-         refs.description.insertAdjacentHTML('afterbegin',infoMarkup);
+        const [posterMarkup, infoMarkup] = createCards(data);         
+        refs.infoCard.insertAdjacentHTML('afterbegin',posterMarkup);
+        refs.description.insertAdjacentHTML('afterbegin',infoMarkup);
     } catch (err) {
         console.log(err);
     }
@@ -99,9 +101,10 @@ export const loadToLS = key => {
 
 const onModalOpen =async e => {
   e.preventDefault(); 
-   setTimeout(() => {
-      refs.watchedBtn.classList.remove('is-hidden');
-  refs.queueBtn.classList.remove('is-hidden');
+  setTimeout(() => {
+    refs.watchedBtn.classList.remove('is-hidden');
+    refs.queueBtn.classList.remove('is-hidden');
+    refs.onTrailer.classList.remove('is-hidden');
   }, 200)
 
     if (e.target.offsetParent.className!=="card-list__item") {
@@ -143,10 +146,34 @@ const onBtnQueueClick= e=>{
   saveToLS('filmQueue', filterArrFilmQueue)   
 }
 
+const onTrailerClick = async e => {
+  const idFilm = refs.onTrailer.dataset.filmId
+  console.log(idFilm);
+  try {
+
+        const data = await movieAPI.getFilmTlailer(idFilm);
+    console.log('154', data);
+    console.log('154', data.results[0].key);
+const vvv=`<iframe id="ytplayer" type="text/html" width="1000" height="600"
+  src="http://www.youtube.com/embed/${data.results[0].key}?autoplay=1&origin=http://example.com"
+  frameborder="0"/>`
+
+    refs.trailerIf.innerHTML = vvv;
+
+    
+    //  <iframe width="560" height="315" src="https://www.youtube.com/embed/63b5c3d9af95900099ef5610" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+         
+    
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 const closeModal = () => {    
   refs.backdropEl.classList.add('is-hidden'); 
   refs.watchedBtn.classList.add('is-hidden');
   refs.queueBtn.classList.add('is-hidden');
+  refs.onTrailer.classList.add('is-hidden');
     document.body.classList.remove('no-scroll');
     document.removeEventListener('keydown', onEscKeyPress);
     refs.infoCard.firstElementChild.remove();
@@ -172,3 +199,4 @@ refs.closeModalEl.addEventListener('click', closeModal);
 refs.backdropEl.addEventListener('click', onBackdropElClick);
 refs.watchedBtn.addEventListener('click', onBtnWatchedClick);
 refs.queueBtn.addEventListener('click', onBtnQueueClick);
+refs.onTrailer.addEventListener('click', onTrailerClick)
