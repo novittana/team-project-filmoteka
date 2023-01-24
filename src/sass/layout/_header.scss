@@ -8,7 +8,7 @@ header {
     repeat: no-repeat;
     position: center;
   }
-  
+
   background-size: cover;
   // linear-gradient(rgba(0, 0, 0, 0.56)) url(/src/images/background-mobile.jpg) center no-repeat;
   @include tablet {
@@ -103,7 +103,6 @@ header {
   color: white;
 }
 
-
 .form-search__input {
   margin-top: 60px;
   display: block;
@@ -195,6 +194,7 @@ header {
   }
 }
 .library-btns {
+  text-transform: capitalize;
   width: 129.53px;
   height: 44px;
   left: 170.47px;
@@ -204,9 +204,50 @@ header {
   border-radius: 5px;
   border: 1px solid #ffffff;
   color: #ffffff;
+
+  transition-property: background-color, border, box-shadow;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
   &:hover,
   &:focus {
+    border: none;
     background: #ff6b01;
     box-shadow: 0px 8px 43px rgba(255, 107, 1, 0.6);
   }
 }
+
+//? Logo-animation
+
+.js-logo-animation {
+  text-shadow: 0 0 80px rgba(255, 255, 255, .5);
+
+  /* Clip Background Image */
+
+  background: url(https://i.ibb.co/RDTnNrT/animated-text-fill.png) repeat-y;
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  /* Animate Background Image */
+
+  color: transparent;
+  animation: aitf 80s linear infinite;
+
+  /* Activate hardware acceleration for smoother animations */
+
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+
+  /* Animate Background Image */
+
+  @keyframes aitf {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    100% {
+      background-position: 100% 50%;
+    }
+  }
+}
+// End Logo-animation
