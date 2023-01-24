@@ -6,26 +6,25 @@ const refs = {
   btnQueueEl: document.querySelector('.js-btn-queue'),
 };
 
-// Вихідні дані LS від Каті
-const saveToLS = (key, value) => {
-  try {
-    const val = JSON.stringify(value);
-    localStorage.setItem(key, val);
-  } catch (error) {
-    console.error('Set state error: ', error.message);
-  }
-};
+let instance = new MovieAPI();
 
-const ArrFilmWatched = ['76600', '653851', '615777', '36554'];
-const ArrFilmQueue = ['996727', '778946', '674324', '990140'];
+// // Вихідні дані LS від Каті
+// const saveToLS = (key, value) => {
+//   try {
+//     const val = JSON.stringify(value);
+//     localStorage.setItem(key, val);
+//   } catch (error) {
+//     console.error('Set state error: ', error.message);
+//   }
+// };
 
-saveToLS('filmWatched', ArrFilmWatched);
+// const ArrFilmWatched = ['76600', '653851', '615777', '36554'];
+// const ArrFilmQueue = ['996727', '778946', '674324', '990140'];
 
-saveToLS('filmQueue', ArrFilmQueue);
-// Кінець-- Вихідні дані LS від Каті
+// saveToLS('filmWatched', ArrFilmWatched);
 
-//! Тут, виходить, реалізовано логіку 3, 14, 15 задач
-// ?загрузка сторінки бібліотеки з усіх фільмів, а потім з фільтром
+// saveToLS('filmQueue', ArrFilmQueue);
+// // Кінець-- Вихідні дані LS від Каті
 
 const loadFromLS = key => {
   try {
@@ -52,7 +51,6 @@ async function renderPageLibrary(event) {
   refs.btnQueueEl.addEventListener('click', renderQueue);
 }
 
-// Задача 03 (Настя)
 function renderAllList() {
   document.querySelector('.gallery__container').innerHTML = '';
   let arrWatchedId = [];
@@ -68,8 +66,9 @@ function renderAllList() {
     showNothingInLibrary();
   } else {
     for (let filmId of arrAllFilmsId) {
-      MovieAPI.getFilmFullInfo(filmId).then(response => {
-        createGallery(response.data, filmId);
+      instance.getFilmFullInfo(filmId).then(response => {
+        console.log(response);
+        createGallery([response], filmId);
       });
     }
   }
@@ -83,8 +82,9 @@ function renderWatched() {
     showNothingInLibrary();
   } else {
     for (let filmId of arrWatchedId) {
-      MovieAPI.getFilmFullInfo(filmId).then(response => {
-        createGallery(response.data, filmId);
+      instance.getFilmFullInfo(filmId).then(response => {
+        console.log(responce);
+        createGallery([response], filmId);
       });
     }
   }
@@ -98,8 +98,9 @@ function renderQueue() {
     showNothingInLibrary();
   } else {
     for (let filmId of arrQueueId) {
-      MovieAPI.getFilmFullInfo(filmId).then(response => {
-        createGallery(response.data, filmId);
+      instance.getFilmFullInfo(filmId).then(response => {
+        console.log(responce);
+        createGallery([response], filmId);
       });
     }
   }

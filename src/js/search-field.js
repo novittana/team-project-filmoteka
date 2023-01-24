@@ -8,7 +8,7 @@ const galleryEl = document.querySelector('.gallery__card-list');
 const paginationEl = document.getElementById('tui-pagination-container');
 const notifyEl = document.querySelector('.notify');
 
-searchFormEl.addEventListener('submit', onLoadMovies);
+// searchFormEl.addEventListener('submit', onLoadMovies);
 
 
 function onLoadMovies(e) {
