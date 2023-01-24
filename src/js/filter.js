@@ -6,6 +6,8 @@ const refs = {
   btnQueueEl: document.querySelector('.js-btn-queue'),
 };
 
+let instance = new MovieAPI();
+
 // Вихідні дані LS від Каті
 const saveToLS = (key, value) => {
   try {
@@ -36,13 +38,12 @@ const loadFromLS = key => {
   }
 };
 
-  const actionPage = document.querySelector('.menu__link-active');
-  if (actionPage.dataset.action === 'library') {
-    renderPageLibrary();
-  }
+const actionPage = document.querySelector('.menu__link-active');
+if (actionPage.dataset.action === 'library') {
+  renderPageLibrary();
+}
 
 async function renderPageLibrary(event) {
- 
   refs.btnWatchedEl.classList.remove('active');
   refs.btnQueueEl.classList.remove('active');
 
@@ -54,7 +55,8 @@ async function renderPageLibrary(event) {
 
 // Задача 03 (Настя)
 function renderAllList() {
-  document.querySelector('.gallery__container').innerHTML = '';
+  document.querySelector('.gallery__container .gallery__card-list').innerHTML =
+    '';
   let arrWatchedId = [];
   let arrQueueId = [];
   if (loadFromLS('filmWatched')) {
@@ -67,41 +69,59 @@ function renderAllList() {
   if (arrWatchedId.length === 0 && arrQueueId.length === 0) {
     showNothingInLibrary();
   } else {
-    for (let filmId of arrAllFilmsId) {
-      MovieAPI.getFilmFullInfo(filmId).then(response => {
-        createGallery(response.data, filmId);
-      });
-    }
+    const films = arrAllFilmsId.map(id => instance.getFilmFullInfo(id));
+    Promise.all(films).then(response => {
+      createGallery(response);
+    });
+    // for (let filmId of arrAllFilmsId) {
+    //   instance.getFilmFullInfo(filmId).then(response => {
+    //     createGallery([response], filmId);
+    //   });
+    // }
   }
 }
 
 function renderWatched() {
-  document.querySelector('.gallery__container').innerHTML = '';
+  document.querySelector('.gallery__container .gallery__card-list').innerHTML =
+    '';
   const arrWatchedId = loadFromLS('filmWatched');
   onWatchedBtnClick();
   if (!arrWatchedId || arrWatchedId.length === 0) {
     showNothingInLibrary();
   } else {
-    for (let filmId of arrWatchedId) {
-      MovieAPI.getFilmFullInfo(filmId).then(response => {
-        createGallery(response.data, filmId);
-      });
-    }
+    const films = arrWatchedId.map(id => instance.getFilmFullInfo(id));
+    Promise.all(films).then(response => {
+      createGallery(response);
+    });
+    // for (let filmId of arrWatchedId) {
+    //   instance.getFilmFullInfo(filmId).then(response => {
+    //     // console.log(response.data);
+    //     console.log(response);
+    //     createGallery([response], filmId);
+    //   });
+    // }
   }
 }
 
 function renderQueue() {
-  document.querySelector('.gallery__container').innerHTML = ' ';
+  document.querySelector('.gallery__container .gallery__card-list').innerHTML =
+    ' ';
   const arrQueueId = loadFromLS('filmQueue');
   onQueueBtnClick();
   if (!arrQueueId || arrQueueId.length === 0) {
     showNothingInLibrary();
   } else {
-    for (let filmId of arrQueueId) {
-      MovieAPI.getFilmFullInfo(filmId).then(response => {
-        createGallery(response.data, filmId);
-      });
-    }
+    const films = arrQueueId.map(id => instance.getFilmFullInfo(id));
+     Promise.all(films).then(response => {
+      createGallery(response);
+    });
+    // for (let filmId of arrQueueId) {
+    //   instance.getFilmFullInfo(filmId).then(response => {
+    //     // console.log(response.data);
+    //     console.log(response);
+    //     createGallery([response], filmId);
+  //     });
+  //   }
   }
 }
 
@@ -116,7 +136,9 @@ function onQueueBtnClick() {
 }
 
 function showNothingInLibrary() {
-  document.querySelector('.gallery__container').innerHTML = `
+  document.querySelector(
+    '.gallery__container .gallery__card-list'
+  ).innerHTML = `
   <li>Sorry...</li>
   <li>
    <a>

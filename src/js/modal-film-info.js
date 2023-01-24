@@ -8,6 +8,8 @@ const refs = {
     watchedBtn:document.querySelector('.js-watched'),
     queueBtn:document.querySelector('.js-queue'),
     description:document.querySelector('.info'),
+  //watchedBtn1:document.querySelector('.card-list_link'),
+  //queueBtn1:document.querySelector('.description-modal_info .queue'),
 };
 
 const movieAPI = new MovieAPI();
@@ -107,8 +109,8 @@ const onModalOpen =async e => {
 // localStorage.removeItem('filmWatched');
 // localStorage.removeItem('filmQueue');
 
-let arrFilmWatched=loadToLS('filmWatched');  
-let arrFilmQueue=loadToLS('filmQueue');
+let arrFilmWatched = loadToLS('filmWatched');  
+let arrFilmQueue= loadToLS('filmQueue');
 
 //console.log(arrFilmWatched);
 //console.log(arrFilmQueue);
