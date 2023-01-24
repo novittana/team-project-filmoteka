@@ -3,6 +3,8 @@ header {
 }
 
 .header__picture-main {
+  width: 100%;
+  margin: 0 auto;
   background: {
     image: url(/src/images/background-mobile.jpg);
     repeat: no-repeat;
@@ -10,13 +12,14 @@ header {
   }
   
   background-size: cover;
-  // linear-gradient(rgba(0, 0, 0, 0.56)) url(/src/images/background-mobile.jpg) center no-repeat;
   @include tablet {
+    max-width: 768px;
     background: url(/src/images/background-tablet.jpg) center no-repeat;
     padding: 40px 32px;
     background-size: cover;
   }
   @include desktop {
+    max-width: 1280px;
     background: url(/src/images/background.jpg) center no-repeat;
     padding: 40px 32px;
     background-size: cover;
@@ -35,14 +38,14 @@ header {
   }
   @include tablet {
     height: 219px;
-    width: 100%;
+    max-width: 768px;
     background: linear-gradient(rgba(47, 48, 58, 0.4), rgba(47, 48, 58, 0.4)),
       url(/src/images/background-tablet-library.jpg) center no-repeat;
     padding: 40px 32px;
     background-size: cover;
   }
   @include desktop {
-    width: 100%;
+    max-width: 1280px;
     height: 216px;
     background: linear-gradient(rgba(47, 48, 58, 0.4), rgba(47, 48, 58, 0.4)),
       url(/src/images/background-library.jpg) center no-repeat;
@@ -57,13 +60,14 @@ header {
 }
 
 .container__header {
-  width: 280px;
+  max-width: 280px;
+  width: 100%;
   margin: 0 auto;
   @include tablet {
-    width: 704px;
+    max-width: 704px;
   }
   @include desktop {
-    width: 1216px;
+    max-width: 1216px;
   }
 }
 .icon {
@@ -115,23 +119,24 @@ header {
   font-size: 14px;
   line-height: 1.14;
   color: white;
-  width: 280px;
+  width: 100%;
+  max-width: 280px;
   @include tablet {
-    width: 336px;
+    max-width: 336px;
     margin-top: 41px;
     margin-bottom: 40px;
   }
   @include desktop {
-    width: 394px;
+    max-width: 394px;
   }
 }
 
 .input-wrapper {
   margin: 0 auto;
   position: relative;
-  width: 280px;
+  max-width: 280px;
   @include tablet {
-    width: 336px;
+    max-width: 336px;
   }
   @include desktop {
     width: 394px;
