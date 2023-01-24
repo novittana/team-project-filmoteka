@@ -92,8 +92,16 @@ export const loadToLS = key => {
   }
 };
 
+// refs.backdropEl.classList.add('is-hidden'); 
+// refs.watchedBtn.classList.add('is-hidden');
+
 const onModalOpen =async e => {
-    e.preventDefault(); 
+  e.preventDefault(); 
+   setTimeout(() => {
+      refs.watchedBtn.classList.remove('is-hidden');
+  refs.queueBtn.classList.remove('is-hidden');
+  }, 200)
+
     if (e.target.offsetParent.className!=="card-list__item") {
         return;
     } 
@@ -134,7 +142,9 @@ const onBtnQueueClick= e=>{
 }
 
 const closeModal = () => {    
-    refs.backdropEl.classList.add('is-hidden');
+  refs.backdropEl.classList.add('is-hidden'); 
+  refs.watchedBtn.classList.add('is-hidden');
+  refs.queueBtn.classList.add('is-hidden');
     document.body.classList.remove('no-scroll');
     document.removeEventListener('keydown', onEscKeyPress);
     refs.infoCard.firstElementChild.remove();
