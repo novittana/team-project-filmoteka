@@ -5,19 +5,10 @@ const refs = {
     backdropEl: document.querySelector('.js-backdrop'),
     closeModalEl: document.querySelector('.js-modal-close'),
     infoCard:document.querySelector('.description-modal_info'),
-     watchedBtn:document.querySelector('.js-watched'),
-     queueBtn:document.querySelector('.js-queue'),
-    //watchedBtn1:document.querySelector('.card-list_link'),
-    //queueBtn1:document.querySelector('.description-modal_info .queue'),
+    watchedBtn:document.querySelector('.js-watched'),
+    queueBtn:document.querySelector('.js-queue'),
+    description:document.querySelector('.info'),
 };
-
-// console.log(watchedBtn1);
-// console.log(queueBtn1);
-
-
-// refs.watchedBtn1.addEventListener('click', ()=>{
-//   console.log('Hell');
-// })
 
 const movieAPI = new MovieAPI();
 
@@ -29,13 +20,15 @@ const createCards = cardInfo => {
     }
     refs.watchedBtn.dataset.filmId = id;
     refs.queueBtn.dataset.filmId = id;
-    return `
-               <img
+    const posterMarkup= `
+        <img
         class="description-modal_img"
         src="https://image.tmdb.org/t/p/w500${poster_path}"
         alt="poster"
-      />
-    <div class="description-modal_wrap">
+        width="340px"
+      />`
+
+    const infoMarkup=`<div class="description-modal_wrap">
         <h2 class="description-modal_title">${title}</h2>
         <ul class="description-modal_list">
           <li class="description-modal_item">
@@ -64,14 +57,18 @@ const createCards = cardInfo => {
         </ul>
             
     </div>        
-            `;    
+            `; 
+  return [posterMarkup, infoMarkup ]   
 };
 
 const addMoveInfo = async (id) => {
     try {
         const data = await movieAPI.getFilmFullInfo(id);
         //console.log('61',data);        
-        refs.infoCard.innerHTML = createCards(data);                  
+         const [posterMarkup, infoMarkup] = createCards(data);
+         
+         refs.infoCard.insertAdjacentHTML('afterbegin',posterMarkup);
+         refs.description.insertAdjacentHTML('afterbegin',infoMarkup);
     } catch (err) {
         console.log(err);
     }
@@ -96,15 +93,11 @@ export const loadToLS = key => {
 };
 
 const onModalOpen =async e => {
-    e.preventDefault();    
-    //console.log('88',e.target.dataset);    
+    e.preventDefault(); 
     if (e.target.offsetParent.className!=="card-list__item") {
         return;
     } 
     const idFilm = e.target.dataset.id;
-    //const data = await movieAPI.getFilmFullInfo(idFilm);
-    //console.log('96',data);
-
     addMoveInfo(idFilm)    
     refs.backdropEl.classList.remove('is-hidden');
     document.body.classList.add('no-scroll');
@@ -117,37 +110,31 @@ const onModalOpen =async e => {
 let arrFilmWatched=loadToLS('filmWatched');  
 let arrFilmQueue=loadToLS('filmQueue');
 
-//arrFilmWatched=loadToLS('filmWatched')
-console.log(arrFilmWatched);
-//arrFilmQueue=loadToLS('filmQueue')
-console.log(arrFilmQueue);
+//console.log(arrFilmWatched);
+//console.log(arrFilmQueue);
 
 const onBtnWatchedClick=e=>{
-  e.preventDefault();
-       
+  e.preventDefault();       
   const idFilm=refs.watchedBtn.dataset.filmId
   arrFilmWatched.push(idFilm)
   const filterArrFilmWatched=arrFilmWatched.filter((value, i, arr)=>arr.indexOf(value)===i)
-  // console.log('122',filterArrFilmWatched);
-  // console.log('123',arrFilmWatched);
   saveToLS('filmWatched', filterArrFilmWatched)
- }
+}
 
 const onBtnQueueClick= e=>{
-e.preventDefault();  
-const idFilm=refs.queueBtn.dataset.filmId
-arrFilmQueue.push(idFilm)
-const filterArrFilmQueue=arrFilmQueue.filter((value, i, arr)=>arr.indexOf(value)===i)    
-// console.log('135',filterArrFilmQueue);
-// console.log('136',arrFilmQueue);
-saveToLS('filmQueue', filterArrFilmQueue)   
+  e.preventDefault();  
+  const idFilm=refs.queueBtn.dataset.filmId
+  arrFilmQueue.push(idFilm)
+  const filterArrFilmQueue=arrFilmQueue.filter((value, i, arr)=>arr.indexOf(value)===i)    
+  saveToLS('filmQueue', filterArrFilmQueue)   
 }
 
 const closeModal = () => {    
     refs.backdropEl.classList.add('is-hidden');
     document.body.classList.remove('no-scroll');
     document.removeEventListener('keydown', onEscKeyPress);
-    refs.infoCard.innerHTML = '';
+    refs.infoCard.firstElementChild.remove();
+    refs.description.firstElementChild.remove();
 };
 
 const onEscKeyPress = e => {
@@ -169,28 +156,3 @@ refs.closeModalEl.addEventListener('click', closeModal);
 refs.backdropEl.addEventListener('click', onBackdropElClick);
 refs.watchedBtn.addEventListener('click', onBtnWatchedClick);
 refs.queueBtn.addEventListener('click', onBtnQueueClick);
-
-
-
-
-
-
-//     const saveToLS = (key, value) => {
-//       try {
-//         const val = JSON.stringify(value);
-//         localStorage.setItem(key, val);
-//       } catch (error) {
-//         console.error("Set state error: ", error.message);
-//       }
-//     };
-
-// const ArrFilmWatched = ["76600","653851","615777","36554"]
-// const ArrFilmQueue = ["996727","778946","674324","990140"]
-
-//     saveToLS('filmWatched', ArrFilmWatched)
-
-//     saveToLS('filmQueue', ArrFilmQueue)
-
-
-// localStorage.removeItem('filmWatched1');
-// localStorage.removeItem('filmQueue1');
