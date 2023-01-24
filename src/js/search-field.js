@@ -30,13 +30,14 @@ function getMoviesByKeyWord(keyWord, page) {
     .getFilmListByKeyWord(keyWord, page)
     .then(movies => { //Создание галереи по результатам запроса
       if (movies.results.length === 0) {
-        notifyEl.insertAdjacentText('beforeend', 'Search result not successful. Enter the correct movie name and');
+        notifyEl.insertAdjacentText('beforeend', 'Search result not successful. Enter the correct movie name.');
         return movies;
       }
-      galleryEl.insertAdjacentHTML(
-        'beforeend',
-        createGallery(movies.results)
-      );
+      // galleryEl.insertAdjacentHTML(
+      //   'beforeend',
+      //   createGallery(movies.results)
+      // );
+      createGallery(movies.results);
       return movies;
     })
     .then(movies => { //Отрисовка пагинации
