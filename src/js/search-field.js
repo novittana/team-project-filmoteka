@@ -4,12 +4,10 @@ import { createPagination } from './pagination';
 
 const api = new MovieAPI();
 const searchFormEl = document.querySelector('.form-search');
-const galleryEl = document.querySelector('.gallery__card-list');
 const paginationEl = document.getElementById('tui-pagination-container');
 const notifyEl = document.querySelector('.notify');
 
-// searchFormEl.addEventListener('submit', onLoadMovies);
-
+searchFormEl.addEventListener('submit', onLoadMovies);
 
 function onLoadMovies(e) {
   e.preventDefault();
@@ -23,7 +21,6 @@ function onLoadMovies(e) {
 
 //Поиск и отображение фильмов по ключевому слову и отрисовка пагинации
 function getMoviesByKeyWord(keyWord, page) {
-  galleryEl.innerHTML = '';
   notifyEl.innerHTML = '';
 
   api
@@ -33,10 +30,7 @@ function getMoviesByKeyWord(keyWord, page) {
         notifyEl.insertAdjacentText('beforeend', 'Search result not successful. Enter the correct movie name.');
         return movies;
       }
-      // galleryEl.insertAdjacentHTML(
-      //   'beforeend',
-      //   createGallery(movies.results)
-      // );
+
       createGallery(movies.results);
       return movies;
     })
