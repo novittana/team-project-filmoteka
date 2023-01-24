@@ -76,32 +76,26 @@
 .description-modal_info {
   @include tablet {
     display: flex;
-    
   }
 }
-
-// .description-modal_wrap {
-//   display: flex;
-//   flex-direction: column;
-// }
 
 .description-modal_img {
   display: block;
   text-align: center;
   margin: 0 auto;
   margin-bottom: 20px;
-  flex-basis:100%;
+  flex-basis: 100%;
   width: 240px;
   height: 357px;
   border-radius: 5px;
   object-fit: cover;
   @include tablet {
     flex: 1;
-    flex-basis:100%;
-  border-radius: 5px;
-  overflow: hidden;
-     width: 310px;
-     height: 440px;
+    flex-basis: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 310px;
+    height: 440px;
     margin-bottom: 0;
     margin-right: 30px;
   }
@@ -126,7 +120,6 @@
 .description-modal_list {
   margin-bottom: 20px;
   @include tablet {
-  //position: relative;
   }
 }
 
@@ -135,21 +128,18 @@
   display: flex;
   gap: 40px;
   @include tablet {
-    
   }
   @include desktop {
     gap: 85px;
   }
-  
-  
 }
-.genres{
+
+.genres {
   width: 200px;
-  
 }
+
 .description-modal_item p {
   margin-right: 5px;
-  
   width: 88px;
   font-weight: 500;
   font-size: 12px;
@@ -185,11 +175,10 @@
     flex-basis: 60%;
   }
   @include desktop {
-    
   }
 }
 
-.slash{
+.slash {
   color: #8c8c8c;
 }
 
@@ -204,7 +193,7 @@ span.description-rating {
   padding-right: 1px;
   padding-top: 1px;
 }
-span.description-rating1{
+span.description-rating1 {
   // padding-top: 3px;
   // width: 36px;
   // height: 16px;
@@ -228,19 +217,12 @@ p.description-modal_about {
   }
 }
 
-.description-btn { 
+.description-btn {
   display: flex;
-  //justify-content: space-between;
+
   @include tablet {
-    // position: absolute;
-    // top: 437px;
-    // left: 30px;
-    //margin-left: 315px;
   }
   @include desktop {
-    // top: 475px;
-    // left: 10px;
-    // margin-left: 390px;
   }
 }
 .description-modal_btn {
@@ -264,7 +246,6 @@ p.description-modal_about {
   color: #ffffff;
   border: none;
   margin-right: 15px;
-  
 }
 .description-modal_btn.queue {
   border: 1px solid #000000;
