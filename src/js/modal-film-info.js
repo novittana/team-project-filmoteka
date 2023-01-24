@@ -114,11 +114,15 @@ let arrFilmQueue=loadToLS('filmQueue');
 //console.log(arrFilmQueue);
 
 const onBtnWatchedClick=e=>{
-  e.preventDefault();       
+  e.preventDefault();
+    // e.target.disabled = true;
+    // e.target.classList.add('is-hidden');
   const idFilm=refs.watchedBtn.dataset.filmId
   arrFilmWatched.push(idFilm)
   const filterArrFilmWatched=arrFilmWatched.filter((value, i, arr)=>arr.indexOf(value)===i)
   saveToLS('filmWatched', filterArrFilmWatched)
+  // e.target.disabled = false;
+  // e.target.classList.remove('is-hidden');
 }
 
 const onBtnQueueClick= e=>{
