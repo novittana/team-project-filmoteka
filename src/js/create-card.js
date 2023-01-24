@@ -36,12 +36,12 @@ runApi();
 
 
 // // створюю ХТМЛ рзмітку карток фільмів для галереї, ф. приймає results: (відповідь сервера > response.data.results)
-export function createGallery(results) {  
+export function createGallery(results=[]) {  
   const elements = results.map(el => {
-      let { id, poster_path, title, genre_ids, release_date, vote_average } =
+      let { id, poster_path, title, genre_ids=[], release_date, vote_average } =
         el;
       const year = new Date(release_date).getFullYear();
-      const average = vote_average.toFixed(2);
+    const average = vote_average.toFixed(2);
       const genre = genre_ids.slice(0, 2).map(el => ' ' + genreList[el]);
       if (!poster_path){
         poster = new URL('/src/images/no-img.jpg', import.meta.url);
