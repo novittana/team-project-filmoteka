@@ -12,7 +12,6 @@ import './js/modal-footer';
 
 
 
-
 // import { MovieAPI } from './js/movie-api';
 
 // var testApi = new MovieAPI();

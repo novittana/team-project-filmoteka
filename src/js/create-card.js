@@ -38,12 +38,16 @@ runApi();
 // // створюю ХТМЛ рзмітку карток фільмів для галереї, ф. приймає results: (відповідь сервера > response.data.results)
 export function createGallery(results) {  
   const elements = results.map(el => {
-      const { id, poster_path, title, genre_ids, release_date, vote_average } =
+      let { id, poster_path, title, genre_ids, release_date, vote_average } =
         el;
-
       const year = new Date(release_date).getFullYear();
       const average = vote_average.toFixed(2);
       const genre = genre_ids.slice(0, 2).map(el => ' ' + genreList[el]);
+      if (!poster_path){
+        poster = new URL('/src/images/no-img.jpg', import.meta.url);
+      } else {
+        poster = `https://image.tmdb.org/t/p/w500${poster_path}`;
+      }
 
       // // визначаю активну сторінку, якщо відкрита library формую картку з рейтингом
       const actionPage = document.querySelector('.menu__link-active');
@@ -52,12 +56,16 @@ export function createGallery(results) {
         return `
           <li class="card-list__item">
             <a href="#" class="card-list_link" id="${id}">
-              <img class="card-list__img" data-id="${id}" src="https://image.tmdb.org/t/p/w500${poster_path}" alt=" ${title} ">
-              <h3 class="card-list__title">${title}</h1>
-              <div class="card-list__info">
-                  <p class="card-list__text">${genre} |  ${year} </p>
-                  <div class="card-list__rate-box"><p class="card-list__rate">${average}</p></div>
+              <div class="card-list__img-box">
+                <img class="card-list__img" data-id="${id}" src="${poster}" alt=" ${title} ">
               </div>
+                <h3 class="card-list__title">${title}</h1>
+                <div class="card-list__info">
+                  <p class="card-list__text">${genre} |  ${year} </p>
+                  <div class="card-list__rate-box">
+                    <p class="card-list__rate">${average}</p>
+                  </div> 
+                </div>
             </a>
           </li>`;
       }
@@ -65,8 +73,10 @@ export function createGallery(results) {
       return `
         <li class="card-list__item">
           <a href="#" class="card-list_link" id="${id}">
-            <img class="card-list__img" data-id="${id}" src="https://image.tmdb.org/t/p/w500${poster_path}" alt=" ${title} ">
-            <h3 class="card-list__title">${title}</h1>
+            <div class="card-list__img-box">
+              <img class="card-list__img" data-id="${id}" src="${poster}" alt=" ${title} ">
+            </div>
+            <h3 class="card-list__title">${title}</h3>
             <p class="card-list__text">${genre} |  ${year} </p>
           </a>
         </li>`;
