@@ -4,6 +4,7 @@ import { createPagination } from './pagination';
 
 const api = new MovieAPI();
 const searchFormEl = document.querySelector('.form-search');
+const cardListEl = document.querySelector('.card-list__main');
 const paginationEl = document.getElementById('tui-pagination-container');
 const notifyEl = document.querySelector('.notify');
 
@@ -26,11 +27,12 @@ function getMoviesByKeyWord(keyWord, page) {
   api
     .getFilmListByKeyWord(keyWord, page)
     .then(movies => { //Создание галереи по результатам запроса
-      if (movies.results.length === 0) {
+      if (movies.results.length === 0) {       
+        cardListEl.innerHTML = '';
         notifyEl.insertAdjacentText('beforeend', 'Search result not successful. Enter the correct movie name.');
         return movies;
       }
-
+      
       createGallery(movies.results);
       return movies;
     })
