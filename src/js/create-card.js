@@ -87,7 +87,7 @@ export function createGallery(results=[]) {
               </div>
                 <h3 class="card-list__title">${title}</h1>
                 <div class="card-list__info">
-                  <p class="card-list__text">${genreGallery} | ${year} </p>
+                  <p class="card-list__text">${genreGallery} | ${year || ''} </p>
                   <div class="card-list__rate-box">
                     <p class="card-list__rate">${average}</p>
                   </div> 
@@ -103,7 +103,7 @@ export function createGallery(results=[]) {
               <img class="card-list__img" data-id="${id}" src="${poster}" alt=" ${title} ">
             </div>
             <h3 class="card-list__title">${title}</h3>
-            <p class="card-list__text">${genreMain} | ${year} </p>
+            <p class="card-list__text">${genreMain} | ${year || ''} </p>
           </a>
         </li>`;
     })
