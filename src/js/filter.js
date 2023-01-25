@@ -1,5 +1,6 @@
 import { createGallery } from './create-card';
 import { MovieAPI } from './movie-api';
+import { watchedPagination } from './pagination-main';
 
 const refs = {
   btnWatchedEl: document.querySelector('.js-btn-watched'),
@@ -36,7 +37,7 @@ async function renderPageLibrary(event) {
 
 function renderAllList() {
   document.querySelector('.gallery__container .gallery__card-list').innerHTML =
-  '';
+    '';
   let arrWatchedId = [];
   let arrQueueId = [];
   if (loadFromLS('filmWatched')) {
@@ -49,7 +50,6 @@ function renderAllList() {
   if (arrWatchedId.length === 0 && arrQueueId.length === 0) {
     showNothingInLibrary();
   } else {
-
     const films = arrAllFilmsId.map(id => instance.getFilmFullInfo(id));
     Promise.all(films).then(response => {
       createGallery(response);
@@ -63,15 +63,14 @@ export function renderWatched() {
   // Масив айдішек
   const arrWatchedId = loadFromLS('filmWatched');
   // console.log('arrWatchedId*', arrWatchedId);
-  
+
   onWatchedBtnClick();
   if (!arrWatchedId || arrWatchedId.length === 0) {
     showNothingInLibrary();
   } else {
-
     const films = arrWatchedId.map(id => instance.getFilmFullInfo(id));
-    Promise.all(films)
-    .then(response => {
+    Promise.all(films).then(response => {
+      watchedPagination(response);
       createGallery(response);
     });
   }
@@ -85,9 +84,9 @@ function renderQueue() {
   if (!arrQueueId || arrQueueId.length === 0) {
     showNothingInLibrary();
   } else {
-
     const films = arrQueueId.map(id => instance.getFilmFullInfo(id));
-     Promise.all(films).then(response => {
+    Promise.all(films).then(response => {
+        watchedPagination(response);
       createGallery(response);
     });
   }
