@@ -1,9 +1,12 @@
 .description-modal_btn.trailer {
   margin-top: 20px;
-  width: 292px;
+  width: 235px;
   background: #ff6b01;
   color: #ffffff;
   border: none;
+  @include tablet {
+    width: 292px;
+  }
   &:hover {
     //color: #535252;
     background-color: #fc842f;
