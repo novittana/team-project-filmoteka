@@ -27,8 +27,10 @@ let instance = new MovieAPI();
 // // Кінець-- Вихідні дані LS від Каті
 
 const loadFromLS = key => {
+  // console.log('key*', key);
   try {
     let filmState = localStorage.getItem(key);
+    // console.log('filmState*', filmState);
     return (filmState = JSON.parse(filmState) || undefined);
   } catch (err) {
     console.error('Get state error: ', err);
@@ -52,7 +54,7 @@ async function renderPageLibrary(event) {
 
 function renderAllList() {
   document.querySelector('.gallery__container .gallery__card-list').innerHTML =
-    '';
+  '';
   let arrWatchedId = [];
   let arrQueueId = [];
   if (loadFromLS('filmWatched')) {
@@ -82,14 +84,18 @@ function renderAllList() {
 export function renderWatched() {
   document.querySelector('.gallery__container .gallery__card-list').innerHTML =
     '';
+  // // Масив айдішек
   const arrWatchedId = loadFromLS('filmWatched');
+  // console.log('arrWatchedId*', arrWatchedId);
+  
   onWatchedBtnClick();
   if (!arrWatchedId || arrWatchedId.length === 0) {
     showNothingInLibrary();
   } else {
 
     const films = arrWatchedId.map(id => instance.getFilmFullInfo(id));
-    Promise.all(films).then(response => {
+    Promise.all(films)
+    .then(response => {
       createGallery(response);
     });
     // for (let filmId of arrWatchedId) {

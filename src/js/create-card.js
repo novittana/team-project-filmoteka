@@ -23,7 +23,7 @@ export const genreList = {};
 // // створюю з класу, з АПІ методами, об'єкт і звертаюсь до АПІ
 import {MovieAPI} from './movie-api';
 const movieApi = new MovieAPI();
-const runApiGenre = async () => {
+const runApi = async () => {
   try{
     // // запит для отримання і збереження жанрів фільмів в об'єкті в форматі id:'genre'
     // // https://api.themoviedb.org/3/genre/movie/list?api_key=a95ff59f8d48ac961c2785119723c43c&language=en-US
@@ -33,16 +33,7 @@ const runApiGenre = async () => {
     genreArr.map(el => {
       genreList[el.id] = el.name;
     });
-  } catch(err){
-    console.log(err);
-  }
-}
-// // активую АПІ запит для отримання жанрів
-runApiGenre();
 
-
-const runApiTrending = async () => {
-  try{
     // // запит для отримання списку найпопулярніших зараз фільмів 
     // // https://api.themoviedb.org/3/trending/movie/day?api_key=a95ff59f8d48ac961c2785119723c43c
     const responseTrending = await movieApi.getPopularFilmList();
@@ -51,7 +42,6 @@ const runApiTrending = async () => {
     console.log(err);
   }
 }
-runApiTrending();
 
 
 // // ********************** логіка відображення різних галерей для гловної сторінки і бібліотеки:
@@ -59,21 +49,28 @@ if (actionPage.dataset.action === 'library') {
   // // активую ф. для створення галереї з переглянутих фільмів
   renderWatched();
 } else {
-  // // активую АПІ запит для отримання списку найпопулярніших зараз фільмів
-  runApiTrending();
+  // // активую АПІ запит для отримання списку трендових фільмів і створення галереї
+  runApi();
 }
 
 
 // // ********************** створюю ХТМЛ рзмітку галереї
 // // ф. приймає results: (відповідь сервера > response.data.results)
-export function createGallery(results={}) {  
-  const elements = results.map(el => {
-      let { id, poster_path, title, genre_ids=[], release_date, vote_average } = el;
-      console.log(genre_ids);
+export function createGallery(results=[]) {
+  // console.log('RESULTS', results);
+  const elements = results.map((el, idx) => {
+      let { id, poster_path, title, genre_ids=[], genres=[] ,release_date, vote_average } = el;
+      // console.log(idx, 'ID', id);
+
+      // // жанри для галереї
+      const genreGallery = genres.slice(0, 2).map(el => el.name );
+      // // жанри для меін, по списку ід дістаю їх назви з збереженого об'єкта genreList
+      const genreMain = genre_ids.slice(0, 2).map(el => ' ' + genreList[el]);
 
       const year = new Date(release_date).getFullYear();
       const average = vote_average.toFixed(2);
-      const genre = genre_ids.slice(0, 2).map(el => ' ' + genreList[el]);
+
+      // // заглушка якщо нема постера:
       if (!poster_path){
         poster = new URL('/src/images/no-img.jpg', import.meta.url);
       } else {
@@ -90,7 +87,7 @@ export function createGallery(results={}) {
               </div>
                 <h3 class="card-list__title">${title}</h1>
                 <div class="card-list__info">
-                  <p class="card-list__text">${genre} |  ${year} </p>
+                  <p class="card-list__text">${genreGallery} | ${year} </p>
                   <div class="card-list__rate-box">
                     <p class="card-list__rate">${average}</p>
                   </div> 
@@ -106,7 +103,7 @@ export function createGallery(results={}) {
               <img class="card-list__img" data-id="${id}" src="${poster}" alt=" ${title} ">
             </div>
             <h3 class="card-list__title">${title}</h3>
-            <p class="card-list__text">${genre} |  ${year} </p>
+            <p class="card-list__text">${genreMain} | ${year} </p>
           </a>
         </li>`;
     })
