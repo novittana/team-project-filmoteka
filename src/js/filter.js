@@ -8,24 +8,6 @@ const refs = {
 
 let instance = new MovieAPI();
 
-// // Вихідні дані LS від Каті
-// const saveToLS = (key, value) => {
-//   try {
-//     const val = JSON.stringify(value);
-//     localStorage.setItem(key, val);
-//   } catch (error) {
-//     console.error('Set state error: ', error.message);
-//   }
-// };
-
-// const ArrFilmWatched = ['76600', '653851', '615777', '36554'];
-// const ArrFilmQueue = ['996727', '778946', '674324', '990140'];
-
-// saveToLS('filmWatched', ArrFilmWatched);
-
-// saveToLS('filmQueue', ArrFilmQueue);
-// // Кінець-- Вихідні дані LS від Каті
-
 const loadFromLS = key => {
   // console.log('key*', key);
   try {
@@ -72,19 +54,13 @@ function renderAllList() {
     Promise.all(films).then(response => {
       createGallery(response);
     });
-    // for (let filmId of arrAllFilmsId) {
-    //   instance.getFilmFullInfo(filmId).then(response => {
-    //     createGallery([response], filmId);
-    //   });
-    // }
-
   }
 }
 
 export function renderWatched() {
   document.querySelector('.gallery__container .gallery__card-list').innerHTML =
     '';
-  // // Масив айдішек
+  // Масив айдішек
   const arrWatchedId = loadFromLS('filmWatched');
   // console.log('arrWatchedId*', arrWatchedId);
   
@@ -98,14 +74,6 @@ export function renderWatched() {
     .then(response => {
       createGallery(response);
     });
-    // for (let filmId of arrWatchedId) {
-    //   instance.getFilmFullInfo(filmId).then(response => {
-    //     // console.log(response.data);
-    //     console.log(response);
-    //     createGallery([response], filmId);
-    //   });
-    // }
-
   }
 }
 
@@ -122,15 +90,6 @@ function renderQueue() {
      Promise.all(films).then(response => {
       createGallery(response);
     });
-    // for (let filmId of arrQueueId) {
-    //   instance.getFilmFullInfo(filmId).then(response => {
-    //     // console.log(response.data);
-    //     console.log(response);
-    //     createGallery([response], filmId);
-  //     });
-  //   }
-
-   
   }
 }
 
@@ -152,7 +111,7 @@ function showNothingInLibrary() {
   <li>
    <a>
       <p class="library__text"> No movies have been added yet. Let's go pick something to your liking!</p>
-      <img class="library__picture" src="../images/no-films-img-min.jpg" alt="nothing to show">
+      <img class="library__picture" src="../images/no-films-img-min.jpg" alt="Nothing to show picture">
     </a>
     </li>
     

@@ -75,7 +75,19 @@ header {
   }
 }
 .icon {
-  fill: white;
+  stroke: white;
+
+  transition-property: stroke;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.icon:hover,
+:focus,
+:active {
+      stroke: #ff6b01;
+      cursor: pointer;
+  
 }
 
 .logo__header {
@@ -104,6 +116,7 @@ header {
   display: flex;
   gap: 39px;
 }
+
 .header-navigation__list > li {
   font-weight: 500;
   font-size: 12px;
@@ -114,10 +127,10 @@ header {
 .form-search__input {
   margin-top: 60px;
   display: block;
-  border: 0;
+  border: transparent;
   position: relative;
   background-color: transparent;
-  border-bottom: 0.5px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.14;
@@ -132,6 +145,33 @@ header {
   @include desktop {
     max-width: 394px;
   }
+
+        transition-property: color, border, border-bottom;
+        transition-duration: 250ms;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover,
+  &:focus,
+  &:active {
+    &::placeholder {
+      color: hsla(0, 0%, 100%, 0.5);
+    }
+
+    border: transparent;
+    background-color: transparent;
+    border-bottom: 1px solid #ff6b01;
+  }
+}
+
+.form-search__input:focus-visible {
+  outline: -webkit-focus-ring-color auto 0px;
+  border: transparent;
+  background-color: transparent;
+  border-bottom: 1px solid #ff6b01;
+
+  transition-property: border-bottom;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .input-wrapper {
@@ -153,6 +193,10 @@ header {
   border: 0;
   padding: 0;
 }
+
+// .input-wrapper>button:focus-within~.icon {
+//   fill: #ff6b01;
+// }
 
 .input-wrapper svg {
   width: 12px;
@@ -179,6 +223,14 @@ header {
 .menu__link {
   position: relative;
   color: #ffffff;
+
+  transition-property: color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu__link:hover {
+  color: #ff6b01;
 }
 
 .menu__link-active::after {
@@ -214,7 +266,7 @@ header {
   border: 1px solid #ffffff;
   color: #ffffff;
 
-  transition-property: background-color, border, box-shadow, ;
+  transition-property: background-color, border, box-shadow;
   transition-duration: 250ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -239,7 +291,7 @@ header {
 //? Logo-animation
 
 .js-logo-animation {
-  text-shadow: 0 0 80px rgba(255, 255, 255, .5);
+  text-shadow: 0 0 80px rgba(255, 255, 255, 0.5);
 
   /* Clip Background Image */
 
