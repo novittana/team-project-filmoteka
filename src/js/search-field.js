@@ -32,7 +32,7 @@ function getMoviesByKeyWord(keyWord, page) {
         notifyEl.insertAdjacentText('beforeend', 'Search result not successful. Enter the correct movie name.');
         return movies;
       }
-      console.log(movies.results);
+      
       createGallery(movies.results);
       return movies;
     })
