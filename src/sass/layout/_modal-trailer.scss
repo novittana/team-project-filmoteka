@@ -43,7 +43,7 @@
   width: 300;
   height: 170px;
   //padding: 40px 20px;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0);
   opacity: 1;
   //transition: opacity 500 $time-function, visibility 500 $time-function;
 
@@ -92,4 +92,7 @@
 }
 
 .videoww {
+}
+
+.not_found {
 }
