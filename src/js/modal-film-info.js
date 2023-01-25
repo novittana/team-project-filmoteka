@@ -12,7 +12,8 @@ const refs = {
   trailerIf: document.querySelector('.videoww'),
     modalOpenElV: document.querySelector('.js-modal-open-video'),
     backdropElV: document.querySelector('.js-backdrop-video'),
-    closeModalElV: document.querySelector('.js-modal-close-video'),
+  closeModalElV: document.querySelector('.js-modal-close-video'),
+    errF:document.querySelector('.video-modal'),
 };
 
 const movieAPI = new MovieAPI();
@@ -20,7 +21,7 @@ const movieAPI = new MovieAPI();
 export const createCards = cardInfo => {
     const { poster_path, title, vote_average, vote_count, popularity, original_title, genres, overview,id } = cardInfo
   const genresEl = [];
-  console.log(cardInfo);
+  //console.log(cardInfo);
     for (genre of genres) {
         genresEl.push(genre.name);        
     }
@@ -103,29 +104,31 @@ export const loadToLS = key => {
 // refs.watchedBtn.classList.add('is-hidden');
 
 let arrFilmWatched = loadToLS('filmWatched');  
-let arrFilmQueue= loadToLS('filmQueue');
+let arrFilmQueue = loadToLS('filmQueue');
+// refs.watchedBtn.textContent = 'add to watched'; //to watched
+//   refs.queueBtn.textContent='add to queue';//to queue
 
 const onModalOpen =async e => {
   e.preventDefault(); 
   refs.queueBtn.classList.remove('disable');
   refs.watchedBtn.classList.remove('disable');
-  refs.watchedBtn.textContent = 'add in watched'; 
-  refs.queueBtn.textContent='add in queue'; 
+  refs.watchedBtn.textContent = 'add to watched'; 
+  refs.queueBtn.textContent='add to queue'; 
 const idFilm = e.target.dataset.id;
-console.log('112',arrFilmWatched);
+//console.log('112',arrFilmWatched);
   for (let el of arrFilmWatched) {
-    console.log('114', el);
-    console.log('115',idFilm);
+    //console.log('114', el);
+    //console.log('115',idFilm);
     if (+el === +idFilm) {
       refs.watchedBtn.classList.add('disable');
-    refs.watchedBtn.textContent='added in watched';   
+    refs.watchedBtn.textContent='added to watched';   
   }
   }
   for (let el of arrFilmQueue) {
-    console.log('120',el);
+    //console.log('120',el);
     if (+el === +idFilm) {
       refs.queueBtn.classList.add('disable');
-    refs.queueBtn.textContent='added in queue';   
+    refs.queueBtn.textContent='added to queue';   
     } 
 }
   // refs.watchedBtn.classList.add('disable'); 
@@ -161,7 +164,7 @@ console.log('112',arrFilmWatched);
 const onBtnWatchedClick=e=>{
   e.preventDefault();
   refs.watchedBtn.classList.add('disable');
-  refs.watchedBtn.textContent='added in watched'; 
+  refs.watchedBtn.textContent='added to watched'; 
   const idFilm=refs.watchedBtn.dataset.filmId
   arrFilmWatched.push(idFilm)
   const filterArrFilmWatched = arrFilmWatched.filter((value, i, arr) => arr.indexOf(value) === i);
@@ -171,7 +174,7 @@ const onBtnWatchedClick=e=>{
 const onBtnQueueClick= e=>{
   e.preventDefault();  
   refs.queueBtn.classList.add('disable');
-  refs.queueBtn.textContent='added in queue'; 
+  refs.queueBtn.textContent='added to queue'; 
   const idFilm=refs.queueBtn.dataset.filmId
   arrFilmQueue.push(idFilm)
   const filterArrFilmQueue=arrFilmQueue.filter((value, i, arr)=>arr.indexOf(value)===i)    
@@ -180,25 +183,30 @@ const onBtnQueueClick= e=>{
 
 const screenWidth = window.screen.width
 const screenHeight = window.screen.height
-console.log('151',screenWidth, screenHeight);
+//console.log('151',screenWidth, screenHeight);
 
 
 const onTrailerClick = async e => {
   const idFilm = refs.onTrailer.dataset.filmId
-  console.log(idFilm);
+  //console.log(idFilm);
   try {
     const data = await movieAPI.getFilmTlailer(idFilm);
-    console.log('159', data);
-    console.log('160', data.results[1].key); 
-
-    let keys = '';    
-    for (let i = 0; i < data.results.length; i++){
-      console.log('167',data.results[i].name.toLowerCase());
+    //console.log('159', data);
+    //console.log('160', data.results[1].key); 
+    let keys = ''; 
+    //console.log('195',data.results.length);
+     if (data.results.length === 0) {
+        refs.errF.textContent = 'Movie trailer not found!'
+        console.log('Movie trailer not found!');
+     } else {
+        for (let i = 0; i < data.results.length; i++){
+      //console.log('167',data.results[i].name.toLowerCase());
       if (data.results[i].name.toLowerCase().includes('official trailer') ) {
         keys = +i;
-        console.log(keys);
+        //console.log(keys);
       }
     }
+    } 
 
     let widthV=0;
     let heightV=0;
@@ -215,10 +223,10 @@ heightV=265;
   widthV=300;
   heightV=170;
 }
-console.log(widthV);
-console.log(heightV);
-console.log('177',keys);
-    console.log('178',data.results[keys].key);
+// console.log(widthV);
+// console.log(heightV);
+// console.log('177',keys);
+    //console.log('178',data.results[keys].key);
     const trailerMarkup =`<iframe id="ytplayer" 
                             type="text/html" 
                             width="${widthV}" 
