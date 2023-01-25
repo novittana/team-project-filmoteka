@@ -7,7 +7,35 @@ import { genreList } from './create-card';
 import { createGallery } from './create-card';
 import { loadToLS } from './modal-film-info';
 
-import { MovieAPI } from './movie-api';
+// import { MovieAPI } from './js/movie-api';
+
+// let movieLibrary = new MovieAPI();
+// movieLibrary.getFilmFullInfo().then(filmList => {
+//   console.log(filmList);
+// });
+
+
+
+
+// const actionPage = document.querySelector('.menu__link-active');
+
+// if (actionPage.dataset.action === 'library') {
+//   return `
+//           <li class="card-list__item">
+//             <a href="#" class="card-list_link" id="${id}">
+//               <div class="card-list__img-box">
+//                 <img class="card-list__img" data-id="${id}" src="${poster}" alt=" ${title} ">
+//               </div>
+//                 <h3 class="card-list__title">${title}</h1>
+//                 <div class="card-list__info">
+//                   <p class="card-list__text">${genre} |  ${year} </p>
+//                   <div class="card-list__rate-box">
+//                     <p class="card-list__rate">${average}</p>
+//                   </div> 
+//                 </div>
+//             </a>
+//           </li>`;
+// }
 
 // Get array with full fillms without repeat
 

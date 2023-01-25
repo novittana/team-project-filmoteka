@@ -6,43 +6,43 @@ const refs = {
   btnQueueEl: document.querySelector('.js-btn-queue'),
 };
 
-// Вихідні дані LS від Каті
-const saveToLS = (key, value) => {
-  try {
-    const val = JSON.stringify(value);
-    localStorage.setItem(key, val);
-  } catch (error) {
-    console.error('Set state error: ', error.message);
-  }
-};
+let instance = new MovieAPI();
 
-const ArrFilmWatched = ['76600', '653851', '615777', '36554'];
-const ArrFilmQueue = ['996727', '778946', '674324', '990140'];
+// // Вихідні дані LS від Каті
+// const saveToLS = (key, value) => {
+//   try {
+//     const val = JSON.stringify(value);
+//     localStorage.setItem(key, val);
+//   } catch (error) {
+//     console.error('Set state error: ', error.message);
+//   }
+// };
 
-saveToLS('filmWatched', ArrFilmWatched);
+// const ArrFilmWatched = ['76600', '653851', '615777', '36554'];
+// const ArrFilmQueue = ['996727', '778946', '674324', '990140'];
 
-saveToLS('filmQueue', ArrFilmQueue);
-// Кінець-- Вихідні дані LS від Каті
+// saveToLS('filmWatched', ArrFilmWatched);
 
-//! Тут, виходить, реалізовано логіку 3, 14, 15 задач
-// ?загрузка сторінки бібліотеки з усіх фільмів, а потім з фільтром
+// saveToLS('filmQueue', ArrFilmQueue);
+// // Кінець-- Вихідні дані LS від Каті
 
 const loadFromLS = key => {
+  // console.log('key*', key);
   try {
     let filmState = localStorage.getItem(key);
+    // console.log('filmState*', filmState);
     return (filmState = JSON.parse(filmState) || undefined);
   } catch (err) {
     console.error('Get state error: ', err);
   }
 };
 
-  const actionPage = document.querySelector('.menu__link-active');
-  if (actionPage.dataset.action === 'library') {
-    renderPageLibrary();
-  }
+const actionPage = document.querySelector('.menu__link-active');
+if (actionPage.dataset.action === 'library') {
+  renderPageLibrary();
+}
 
 async function renderPageLibrary(event) {
- 
   refs.btnWatchedEl.classList.remove('active');
   refs.btnQueueEl.classList.remove('active');
 
@@ -52,9 +52,9 @@ async function renderPageLibrary(event) {
   refs.btnQueueEl.addEventListener('click', renderQueue);
 }
 
-// Задача 03 (Настя)
 function renderAllList() {
-  document.querySelector('.gallery__container').innerHTML = '';
+  document.querySelector('.gallery__container .gallery__card-list').innerHTML =
+  '';
   let arrWatchedId = [];
   let arrQueueId = [];
   if (loadFromLS('filmWatched')) {
@@ -67,41 +67,70 @@ function renderAllList() {
   if (arrWatchedId.length === 0 && arrQueueId.length === 0) {
     showNothingInLibrary();
   } else {
-    for (let filmId of arrAllFilmsId) {
-      MovieAPI.getFilmFullInfo(filmId).then(response => {
-        createGallery(response.data, filmId);
-      });
-    }
+
+    const films = arrAllFilmsId.map(id => instance.getFilmFullInfo(id));
+    Promise.all(films).then(response => {
+      createGallery(response);
+    });
+    // for (let filmId of arrAllFilmsId) {
+    //   instance.getFilmFullInfo(filmId).then(response => {
+    //     createGallery([response], filmId);
+    //   });
+    // }
+
   }
 }
 
-function renderWatched() {
-  document.querySelector('.gallery__container').innerHTML = '';
+export function renderWatched() {
+  document.querySelector('.gallery__container .gallery__card-list').innerHTML =
+    '';
+  // // Масив айдішек
   const arrWatchedId = loadFromLS('filmWatched');
+  // console.log('arrWatchedId*', arrWatchedId);
+  
   onWatchedBtnClick();
   if (!arrWatchedId || arrWatchedId.length === 0) {
     showNothingInLibrary();
   } else {
-    for (let filmId of arrWatchedId) {
-      MovieAPI.getFilmFullInfo(filmId).then(response => {
-        createGallery(response.data, filmId);
-      });
-    }
+
+    const films = arrWatchedId.map(id => instance.getFilmFullInfo(id));
+    Promise.all(films)
+    .then(response => {
+      createGallery(response);
+    });
+    // for (let filmId of arrWatchedId) {
+    //   instance.getFilmFullInfo(filmId).then(response => {
+    //     // console.log(response.data);
+    //     console.log(response);
+    //     createGallery([response], filmId);
+    //   });
+    // }
+
   }
 }
 
 function renderQueue() {
-  document.querySelector('.gallery__container').innerHTML = ' ';
+  document.querySelector('.gallery__container .gallery__card-list').innerHTML =
+    ' ';
   const arrQueueId = loadFromLS('filmQueue');
   onQueueBtnClick();
   if (!arrQueueId || arrQueueId.length === 0) {
     showNothingInLibrary();
   } else {
-    for (let filmId of arrQueueId) {
-      MovieAPI.getFilmFullInfo(filmId).then(response => {
-        createGallery(response.data, filmId);
-      });
-    }
+
+    const films = arrQueueId.map(id => instance.getFilmFullInfo(id));
+     Promise.all(films).then(response => {
+      createGallery(response);
+    });
+    // for (let filmId of arrQueueId) {
+    //   instance.getFilmFullInfo(filmId).then(response => {
+    //     // console.log(response.data);
+    //     console.log(response);
+    //     createGallery([response], filmId);
+  //     });
+  //   }
+
+   
   }
 }
 
@@ -116,7 +145,9 @@ function onQueueBtnClick() {
 }
 
 function showNothingInLibrary() {
-  document.querySelector('.gallery__container').innerHTML = `
+  document.querySelector(
+    '.gallery__container .gallery__card-list'
+  ).innerHTML = `
   <li>Sorry...</li>
   <li>
    <a>

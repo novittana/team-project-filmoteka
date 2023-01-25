@@ -86,7 +86,7 @@
 
 .footer-section-title{
     margin-top: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-align: center;
     color: black;
     font-weight: 900;
@@ -98,7 +98,7 @@
 .team-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 15px;
     justify-content: center;
     // border-radius: 20px;
 }
@@ -111,10 +111,10 @@
 
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
 @media screen and (min-width:768px) {
-    width: calc((100% - 30px) / 3);
+    width: calc((100% - 15px) / 3);
     }
 @media screen and (min-width:1280px) {
-    width: calc((100% - 30px * 3) / 4);
+    width: calc((100% - 15px * 3) / 4);
     }
   }
  
@@ -149,6 +149,7 @@
   font-size: 16px;
   line-height: 1.19;
   text-align: center;
+
 }
 
 .position {
@@ -159,6 +160,7 @@
   font-size: 15px;
   line-height: 1.19;
   text-align: center;
+
 }
 
 .team-soc-link {
@@ -174,4 +176,43 @@
   }
 }
 
- 
+.about-text{
+  margin-top: 15px;
+  margin-bottom: 0;
+  font-weight: 600;
+  color:#383838;
+  font-size: 15px;
+  line-height: 1.19;
+  text-align: center;
+}
+
+.about{
+  margin-top: 5px;
+  margin-bottom: 0;
+  font-weight: 600;
+  color:#383838;
+  font-size: 15px;
+  line-height: 1.19;
+  text-align: center;
+
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:focus,
+  &:hover {
+    color: #FF6B08;
+    transition: opacity $time-hover $time-function,
+    visibility $time-hover $time-function;
+  }
+
+}
+
+.icon-footer-about{
+  position: relative;
+  // margin-left: -1px;
+  fill: black;
+  &:focus,
+  &:hover {
+    fill: #FF6B08;
+  }
+}
