@@ -10,13 +10,13 @@ export class MovieAPI {
    * getPopularFilmList description
    * @return {JSON} obj response
    */
-  async getPopularFilmList(pageIndex) {
+  async getPopularFilmList(page) {
     const response = await axios.get(
       `${MovieAPI.BASE_URL}3/trending/movie/day`,
       {
         params: {
           api_key: MovieAPI.API_KEY,
-          page: pageIndex || 1,
+          page: page || 1,
         },
       }
     );
