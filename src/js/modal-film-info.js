@@ -13,7 +13,7 @@ const refs = {
     modalOpenElV: document.querySelector('.js-modal-open-video'),
     backdropElV: document.querySelector('.js-backdrop-video'),
   closeModalElV: document.querySelector('.js-modal-close-video'),
-    errF:document.querySelector('.video-modal'),
+    errF:document.querySelector('.not_found'),
 };
 
 const movieAPI = new MovieAPI();
@@ -65,15 +65,13 @@ export const createCards = cardInfo => {
         </ul>
             
     </div>        
-            `; 
-  //const videoMarkup=``
+            `;  
   return [posterMarkup, infoMarkup ]   
 };
 
 const addMoveInfo = async (id) => {
     try {
-        const data = await movieAPI.getFilmFullInfo(id);
-        //console.log('61',data);        
+        const data = await movieAPI.getFilmFullInfo(id);             
         const [posterMarkup, infoMarkup] = createCards(data);         
         refs.infoCard.insertAdjacentHTML('afterbegin',posterMarkup);
         refs.description.insertAdjacentHTML('afterbegin',infoMarkup);
@@ -100,13 +98,11 @@ export const loadToLS = key => {
   }
 };
 
-// refs.backdropEl.classList.add('is-hidden'); 
-// refs.watchedBtn.classList.add('is-hidden');
+// localStorage.removeItem('filmWatched');
+// localStorage.removeItem('filmQueue');
 
 let arrFilmWatched = loadToLS('filmWatched');  
 let arrFilmQueue = loadToLS('filmQueue');
-// refs.watchedBtn.textContent = 'add to watched'; //to watched
-//   refs.queueBtn.textContent='add to queue';//to queue
 
 const onModalOpen =async e => {
   e.preventDefault(); 
@@ -131,9 +127,7 @@ const idFilm = e.target.dataset.id;
     refs.queueBtn.textContent='added to queue';   
     } 
 }
-  // refs.watchedBtn.classList.add('disable'); 
-
-
+  
   setTimeout(() => {
     refs.watchedBtn.classList.remove('is-hidden');
    // refs.watchedBtn.classList.add('disable'); 
@@ -150,16 +144,6 @@ const idFilm = e.target.dataset.id;
     document.body.classList.add('no-scroll');
   document.addEventListener('keydown', onEscKeyPress);   
 };
-
-// localStorage.removeItem('filmWatched');
-// localStorage.removeItem('filmQueue');
-
-// let arrFilmWatched = loadToLS('filmWatched');  
-// let arrFilmQueue= loadToLS('filmQueue');
-
-//console.log(arrFilmWatched);
-//console.log(arrFilmQueue);
-
 
 const onBtnWatchedClick=e=>{
   e.preventDefault();
@@ -188,53 +172,49 @@ const screenHeight = window.screen.height
 
 const onTrailerClick = async e => {
   const idFilm = refs.onTrailer.dataset.filmId
-  //console.log(idFilm);
+
   try {
     const data = await movieAPI.getFilmTlailer(idFilm);
-    //console.log('159', data);
-    //console.log('160', data.results[1].key); 
+        //console.log('160', data.results[1].key); 
     let keys = ''; 
-    //console.log('195',data.results.length);
-     if (data.results.length === 0) {
-        refs.errF.textContent = 'Movie trailer not found!'
-        console.log('Movie trailer not found!');
-     } else {
-        for (let i = 0; i < data.results.length; i++){
-      //console.log('167',data.results[i].name.toLowerCase());
-      if (data.results[i].name.toLowerCase().includes('official trailer') ) {
-        keys = +i;
-        //console.log(keys);
-      }
-    }
-    } 
+    
+    if (data.results.length === 0) {
+      //refs.errF.textContent = 'Movie trailer not found!'
+      refs.errF.classList.remove('is-hidden');
+      console.log('Movie trailer not found!');
+      //  refs.backdropEl.classList.add('is-hidden'); 
+      return;
+    } else {
+      for (let i = 0; i < data.results.length; i++) {
+        if (data.results[i].name.toLowerCase().includes('official trailer')) {
+          keys = +i;
+        }
+      }     
 
-    let widthV=0;
-    let heightV=0;
-if(screenWidth>1240){
-widthV=1000;
-heightV=600;
-} else if(screenWidth>768){
-widthV=760;
-heightV=430;
-}else if(screenWidth>480){
-widthV=470;
-heightV=265;
-}else{
-  widthV=300;
-  heightV=170;
-}
-// console.log(widthV);
-// console.log(heightV);
-// console.log('177',keys);
-    //console.log('178',data.results[keys].key);
-    const trailerMarkup =`<iframe id="ytplayer" 
+      let widthV = 0;
+      let heightV = 0;
+      if (screenWidth > 1240) {
+        widthV = 1000;
+        heightV = 600;
+      } else if (screenWidth > 768) {
+        widthV = 760;
+        heightV = 430;
+      } else if (screenWidth > 480) {
+        widthV = 470;
+        heightV = 265;
+      } else {
+        widthV = 300;
+        heightV = 170;
+      }
+
+      const trailerMarkup = `<iframe id="ytplayer" 
                             type="text/html" 
                             width="${widthV}" 
                             height="${heightV}"
                             src="http://www.youtube.com/embed/${data.results[keys].key}?autoplay=1&fs=1&origin=http://example.com"
                             frameborder="0" />`
-    refs.trailerIf.innerHTML = trailerMarkup;  
-    
+      refs.trailerIf.innerHTML = trailerMarkup;
+    }
   } catch (err) {
         console.log(err);
     }
@@ -245,10 +225,11 @@ const closeModal = () => {
   refs.watchedBtn.classList.add('is-hidden');
   refs.queueBtn.classList.add('is-hidden');
   refs.onTrailer.classList.add('is-hidden');
-    document.body.classList.remove('no-scroll');
-    document.removeEventListener('keydown', onEscKeyPress);
-    refs.infoCard.firstElementChild.remove();
-    refs.description.firstElementChild.remove();
+  document.body.classList.remove('no-scroll');
+  document.removeEventListener('keydown', onEscKeyPress);
+  refs.infoCard.firstElementChild.remove();
+  refs.description.firstElementChild.remove();
+  refs.errF.classList.add('is-hidden');
 };
 
 const onEscKeyPress = e => {
@@ -272,16 +253,14 @@ refs.watchedBtn.addEventListener('click', onBtnWatchedClick);
 refs.queueBtn.addEventListener('click', onBtnQueueClick);
 refs.onTrailer.addEventListener('click', onTrailerClick)
 
+//-------MODAL OF TRAILER------//
 
-const onModalOpenV = () => {
-  
+const onModalOpenV = () => {  
+    refs.backdropElV.classList.remove('is-hidden');   
     refs.backdropElV.classList.remove('is-hidden');
-    document.body.classList.add('no-scroll');
-  //document.addEventListener('keydown', onEscKeyPress); 
-  refs.backdropEl.classList.add('is-hidden'); 
-  // refs.watchedBtn.classList.add('is-hidden');
-  // refs.queueBtn.classList.add('is-hidden');
-  // refs.onTrailer.classList.add('is-hidden');
+    document.body.classList.add('no-scroll');   
+    refs.backdropEl.classList.add('is-hidden'); 
+
 };
 
 const closeModalV = () => {  
@@ -289,19 +268,9 @@ const closeModalV = () => {
   refs.backdropElV.classList.add('is-hidden'); 
     document.body.classList.remove('no-scroll');
   document.removeEventListener('keydown', onEscKeyPress); 
-      refs.backdropEl.classList.remove('is-hidden');
-  // refs.watchedBtn.classList.remove('is-hidden');
-  //   refs.queueBtn.classList.remove('is-hidden');
-  // refs.onTrailer.classList.remove('is-hidden');
-    
-  
+  refs.backdropEl.classList.remove('is-hidden');
+  document.body.classList.add('no-scroll');  
 };
-
-// const onEscKeyPressV = e => {
-//     if (e.code === 'Escape') {
-//         closeModal();
-//     }
-// };
 
 const onBackdropElClickV = e => {
     const { target, currentTarget } = e;
@@ -314,7 +283,3 @@ const onBackdropElClickV = e => {
 refs.modalOpenElV.addEventListener('click', onModalOpenV);
 refs.closeModalElV.addEventListener('click', closeModalV);
 refs.backdropElV.addEventListener('click', onBackdropElClickV);
-
-
-
-//  <iframe width="560" height="315" src="https://www.youtube.com/embed/63b5c3d9af95900099ef5610" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>

@@ -1,9 +1,12 @@
 .description-modal_btn.trailer {
   margin-top: 20px;
-  width: 292px;
+  width: 235px;
   background: #ff6b01;
   color: #ffffff;
   border: none;
+  @include tablet {
+    width: 292px;
+  }
   &:hover {
     //color: #535252;
     background-color: #fc842f;
@@ -43,7 +46,7 @@
   width: 300;
   height: 170px;
   //padding: 40px 20px;
-  background-color: #ffffff;
+  background-color: rgba(0, 0, 0, 0);
   opacity: 1;
   //transition: opacity 500 $time-function, visibility 500 $time-function;
 
@@ -84,6 +87,7 @@
   color: #ffffffd5;
   &:hover {
     cursor: pointer;
+    color: #fc9207;
   }
 }
 .description-close-icon-v {
@@ -91,4 +95,7 @@
 }
 
 .videoww {
+}
+
+.not_found {
 }
