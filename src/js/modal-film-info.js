@@ -109,19 +109,23 @@ const onModalOpen =async e => {
   e.preventDefault(); 
   refs.queueBtn.classList.remove('disable');
   refs.watchedBtn.classList.remove('disable');
+  refs.watchedBtn.textContent = 'add in watched'; 
+  refs.queueBtn.textContent='add in queue'; 
 const idFilm = e.target.dataset.id;
 console.log('112',arrFilmWatched);
   for (let el of arrFilmWatched) {
     console.log('114', el);
     console.log('115',idFilm);
     if (+el === +idFilm) {
-    refs.watchedBtn.classList.add('disable'); 
+      refs.watchedBtn.classList.add('disable');
+    refs.watchedBtn.textContent='added in watched';   
   }
   }
   for (let el of arrFilmQueue) {
     console.log('120',el);
     if (+el === +idFilm) {
-    refs.queueBtn.classList.add('disable'); 
+      refs.queueBtn.classList.add('disable');
+    refs.queueBtn.textContent='added in queue';   
     } 
 }
   // refs.watchedBtn.classList.add('disable'); 
@@ -156,7 +160,8 @@ console.log('112',arrFilmWatched);
 
 const onBtnWatchedClick=e=>{
   e.preventDefault();
-  refs.watchedBtn.classList.add('disable');    
+  refs.watchedBtn.classList.add('disable');
+  refs.watchedBtn.textContent='added in watched'; 
   const idFilm=refs.watchedBtn.dataset.filmId
   arrFilmWatched.push(idFilm)
   const filterArrFilmWatched = arrFilmWatched.filter((value, i, arr) => arr.indexOf(value) === i);
@@ -166,6 +171,7 @@ const onBtnWatchedClick=e=>{
 const onBtnQueueClick= e=>{
   e.preventDefault();  
   refs.queueBtn.classList.add('disable');
+  refs.queueBtn.textContent='added in queue'; 
   const idFilm=refs.queueBtn.dataset.filmId
   arrFilmQueue.push(idFilm)
   const filterArrFilmQueue=arrFilmQueue.filter((value, i, arr)=>arr.indexOf(value)===i)    
