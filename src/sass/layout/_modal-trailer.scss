@@ -4,6 +4,11 @@
   background: #ff6b01;
   color: #ffffff;
   border: none;
+  &:hover {
+    //color: #535252;
+    background-color: #fc842f;
+    border: none;
+  }
 }
 
 .videoww {
@@ -19,7 +24,7 @@
   height: 100%;
   z-index: 100;
   opacity: 1;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.8);
   transition: opacity $time-hover $time-function,
     visibility $time-hover $time-function;
   overflow-y: scroll;
@@ -35,16 +40,16 @@
   margin-bottom: 10px;
   margin-left: auto;
   margin-right: auto;
-  width: 90%;
-  min-height: 300px;
+  width: 300;
+  height: 170px;
   //padding: 40px 20px;
   background-color: #ffffff;
   opacity: 1;
   //transition: opacity 500 $time-function, visibility 500 $time-function;
 
   @media screen and (min-width: 480px) {
-    width: 420px;
-    min-height: 300px;
+    width: 470px;
+    min-height: 265px;
   }
   @include tablet {
     position: absolute;
@@ -53,8 +58,8 @@
     transform: translate(-50%, -50%) scaleY(1);
     overflow: hidden;
     //padding: 40px;
-    width: 704px;
-    min-height: 510px;
+    width: 760px;
+    min-height: 430px;
   }
   @include desktop {
     //padding: 40px 12px;

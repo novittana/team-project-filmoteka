@@ -8,13 +8,16 @@ const refs = {
     watchedBtn:document.querySelector('.js-watched'),
     queueBtn:document.querySelector('.js-queue'),
     description: document.querySelector('.info'),
-  onTrailer: document.querySelector('.trailer'),
-    trailerIf:document.querySelector('.videoww')
+    onTrailer: document.querySelector('.trailer'),
+  trailerIf: document.querySelector('.videoww'),
+    modalOpenElV: document.querySelector('.js-modal-open-video'),
+    backdropElV: document.querySelector('.js-backdrop-video'),
+    closeModalElV: document.querySelector('.js-modal-close-video'),
 };
 
 const movieAPI = new MovieAPI();
 
-const createCards = cardInfo => {
+export const createCards = cardInfo => {
     const { poster_path, title, vote_average, vote_count, popularity, original_title, genres, overview,id } = cardInfo
   const genresEl = [];
   console.log(cardInfo);
@@ -99,10 +102,34 @@ export const loadToLS = key => {
 // refs.backdropEl.classList.add('is-hidden'); 
 // refs.watchedBtn.classList.add('is-hidden');
 
+let arrFilmWatched = loadToLS('filmWatched');  
+let arrFilmQueue= loadToLS('filmQueue');
+
 const onModalOpen =async e => {
   e.preventDefault(); 
+  refs.queueBtn.classList.remove('disable');
+  refs.watchedBtn.classList.remove('disable');
+const idFilm = e.target.dataset.id;
+console.log('112',arrFilmWatched);
+  for (let el of arrFilmWatched) {
+    console.log('114', el);
+    console.log('115',idFilm);
+    if (+el === +idFilm) {
+    refs.watchedBtn.classList.add('disable'); 
+  }
+  }
+  for (let el of arrFilmQueue) {
+    console.log('120',el);
+    if (+el === +idFilm) {
+    refs.queueBtn.classList.add('disable'); 
+    } 
+}
+  // refs.watchedBtn.classList.add('disable'); 
+
+
   setTimeout(() => {
     refs.watchedBtn.classList.remove('is-hidden');
+   // refs.watchedBtn.classList.add('disable'); 
     refs.queueBtn.classList.remove('is-hidden');
     refs.onTrailer.classList.remove('is-hidden');
   }, 200)
@@ -110,61 +137,91 @@ const onModalOpen =async e => {
     if (e.target.offsetParent.className!=="card-list__item") {
         return;
     } 
-    const idFilm = e.target.dataset.id;
+    
     addMoveInfo(idFilm)    
     refs.backdropEl.classList.remove('is-hidden');
     document.body.classList.add('no-scroll');
-    document.addEventListener('keydown', onEscKeyPress);    
+  document.addEventListener('keydown', onEscKeyPress);   
 };
 
 // localStorage.removeItem('filmWatched');
 // localStorage.removeItem('filmQueue');
 
-let arrFilmWatched = loadToLS('filmWatched');  
-let arrFilmQueue= loadToLS('filmQueue');
+// let arrFilmWatched = loadToLS('filmWatched');  
+// let arrFilmQueue= loadToLS('filmQueue');
 
 //console.log(arrFilmWatched);
 //console.log(arrFilmQueue);
 
+
 const onBtnWatchedClick=e=>{
   e.preventDefault();
-    // e.target.disabled = true;
-    // e.target.classList.add('is-hidden');
+  refs.watchedBtn.classList.add('disable');    
   const idFilm=refs.watchedBtn.dataset.filmId
   arrFilmWatched.push(idFilm)
-  const filterArrFilmWatched=arrFilmWatched.filter((value, i, arr)=>arr.indexOf(value)===i)
+  const filterArrFilmWatched = arrFilmWatched.filter((value, i, arr) => arr.indexOf(value) === i);
   saveToLS('filmWatched', filterArrFilmWatched)
-  // e.target.disabled = false;
-  // e.target.classList.remove('is-hidden');
 }
 
 const onBtnQueueClick= e=>{
   e.preventDefault();  
+  refs.queueBtn.classList.add('disable');
   const idFilm=refs.queueBtn.dataset.filmId
   arrFilmQueue.push(idFilm)
   const filterArrFilmQueue=arrFilmQueue.filter((value, i, arr)=>arr.indexOf(value)===i)    
   saveToLS('filmQueue', filterArrFilmQueue)   
 }
 
+const screenWidth = window.screen.width
+const screenHeight = window.screen.height
+console.log('151',screenWidth, screenHeight);
+
+
 const onTrailerClick = async e => {
   const idFilm = refs.onTrailer.dataset.filmId
   console.log(idFilm);
   try {
+    const data = await movieAPI.getFilmTlailer(idFilm);
+    console.log('159', data);
+    console.log('160', data.results[1].key); 
 
-        const data = await movieAPI.getFilmTlailer(idFilm);
-    console.log('154', data);
-    console.log('154', data.results[0].key);
-const vvv=`<iframe id="ytplayer" type="text/html" width="1000" height="600"
-  src="http://www.youtube.com/embed/${data.results[0].key}?autoplay=1&origin=http://example.com"
-  frameborder="0"/>`
+    let keys = '';    
+    for (let i = 0; i < data.results.length; i++){
+      console.log('167',data.results[i].name.toLowerCase());
+      if (data.results[i].name.toLowerCase().includes('official trailer') ) {
+        keys = +i;
+        console.log(keys);
+      }
+    }
 
-    refs.trailerIf.innerHTML = vvv;
-
+    let widthV=0;
+    let heightV=0;
+if(screenWidth>1240){
+widthV=1000;
+heightV=600;
+} else if(screenWidth>768){
+widthV=760;
+heightV=430;
+}else if(screenWidth>480){
+widthV=470;
+heightV=265;
+}else{
+  widthV=300;
+  heightV=170;
+}
+console.log(widthV);
+console.log(heightV);
+console.log('177',keys);
+    console.log('178',data.results[keys].key);
+    const trailerMarkup =`<iframe id="ytplayer" 
+                            type="text/html" 
+                            width="${widthV}" 
+                            height="${heightV}"
+                            src="http://www.youtube.com/embed/${data.results[keys].key}?autoplay=1&fs=1&origin=http://example.com"
+                            frameborder="0" />`
+    refs.trailerIf.innerHTML = trailerMarkup;  
     
-    //  <iframe width="560" height="315" src="https://www.youtube.com/embed/63b5c3d9af95900099ef5610" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-         
-    
-    } catch (err) {
+  } catch (err) {
         console.log(err);
     }
 }
@@ -200,3 +257,50 @@ refs.backdropEl.addEventListener('click', onBackdropElClick);
 refs.watchedBtn.addEventListener('click', onBtnWatchedClick);
 refs.queueBtn.addEventListener('click', onBtnQueueClick);
 refs.onTrailer.addEventListener('click', onTrailerClick)
+
+
+const onModalOpenV = () => {
+  
+    refs.backdropElV.classList.remove('is-hidden');
+    document.body.classList.add('no-scroll');
+  //document.addEventListener('keydown', onEscKeyPress); 
+  refs.backdropEl.classList.add('is-hidden'); 
+  // refs.watchedBtn.classList.add('is-hidden');
+  // refs.queueBtn.classList.add('is-hidden');
+  // refs.onTrailer.classList.add('is-hidden');
+};
+
+const closeModalV = () => {  
+    refs.trailerIf.innerHTML ='';
+  refs.backdropElV.classList.add('is-hidden'); 
+    document.body.classList.remove('no-scroll');
+  document.removeEventListener('keydown', onEscKeyPress); 
+      refs.backdropEl.classList.remove('is-hidden');
+  // refs.watchedBtn.classList.remove('is-hidden');
+  //   refs.queueBtn.classList.remove('is-hidden');
+  // refs.onTrailer.classList.remove('is-hidden');
+    
+  
+};
+
+// const onEscKeyPressV = e => {
+//     if (e.code === 'Escape') {
+//         closeModal();
+//     }
+// };
+
+const onBackdropElClickV = e => {
+    const { target, currentTarget } = e;
+    if (target !== currentTarget) {
+        return;
+    }
+    closeModalV();
+};
+
+refs.modalOpenElV.addEventListener('click', onModalOpenV);
+refs.closeModalElV.addEventListener('click', closeModalV);
+refs.backdropElV.addEventListener('click', onBackdropElClickV);
+
+
+
+//  <iframe width="560" height="315" src="https://www.youtube.com/embed/63b5c3d9af95900099ef5610" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>

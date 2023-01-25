@@ -247,13 +247,34 @@ p.description-modal_about {
   color: #ffffff;
   border: none;
   margin-right: 15px;
+  &:hover {
+    //color: #535252;
+    background-color: #fc842f;
+    border: none;
+  }
 }
 .description-modal_btn.queue {
   border: 1px solid #000000;
   color: #000000;
   background-color: #ffffff;
+  &:hover {
+    //color: #fc842f;
+    //background-color: #fc842f;
+    border: 2px solid #fc842f;
+  }
 }
 
 //  &.no-scroll {
 //     overflow: hidden;
 //   }
+
+.description-modal_btn.disable {
+  color: #535252;
+  background-color: #e3e6d7e0;
+  border: none;
+  &:hover {
+    color: #535252;
+    background-color: #e3e6d7e0;
+    border: none;
+  }
+}
