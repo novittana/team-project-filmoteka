@@ -65,15 +65,13 @@ export const createCards = cardInfo => {
         </ul>
             
     </div>        
-            `; 
-  //const videoMarkup=``
+            `;  
   return [posterMarkup, infoMarkup ]   
 };
 
 const addMoveInfo = async (id) => {
     try {
-        const data = await movieAPI.getFilmFullInfo(id);
-        //console.log('61',data);        
+        const data = await movieAPI.getFilmFullInfo(id);             
         const [posterMarkup, infoMarkup] = createCards(data);         
         refs.infoCard.insertAdjacentHTML('afterbegin',posterMarkup);
         refs.description.insertAdjacentHTML('afterbegin',infoMarkup);
@@ -100,13 +98,8 @@ export const loadToLS = key => {
   }
 };
 
-// refs.backdropEl.classList.add('is-hidden'); 
-// refs.watchedBtn.classList.add('is-hidden');
-
 let arrFilmWatched = loadToLS('filmWatched');  
 let arrFilmQueue = loadToLS('filmQueue');
-// refs.watchedBtn.textContent = 'add to watched'; //to watched
-//   refs.queueBtn.textContent='add to queue';//to queue
 
 const onModalOpen =async e => {
   e.preventDefault(); 
@@ -273,15 +266,12 @@ refs.queueBtn.addEventListener('click', onBtnQueueClick);
 refs.onTrailer.addEventListener('click', onTrailerClick)
 
 
-const onModalOpenV = () => {
-  
+const onModalOpenV = () => {  
+    refs.backdropElV.classList.remove('is-hidden');   
     refs.backdropElV.classList.remove('is-hidden');
-    document.body.classList.add('no-scroll');
-  //document.addEventListener('keydown', onEscKeyPress); 
-  refs.backdropEl.classList.add('is-hidden'); 
-  // refs.watchedBtn.classList.add('is-hidden');
-  // refs.queueBtn.classList.add('is-hidden');
-  // refs.onTrailer.classList.add('is-hidden');
+    document.body.classList.add('no-scroll');   
+    refs.backdropEl.classList.add('is-hidden'); 
+
 };
 
 const closeModalV = () => {  
@@ -289,7 +279,8 @@ const closeModalV = () => {
   refs.backdropElV.classList.add('is-hidden'); 
     document.body.classList.remove('no-scroll');
   document.removeEventListener('keydown', onEscKeyPress); 
-      refs.backdropEl.classList.remove('is-hidden');
+  refs.backdropEl.classList.remove('is-hidden');
+  document.body.classList.add('no-scroll');
   // refs.watchedBtn.classList.remove('is-hidden');
   //   refs.queueBtn.classList.remove('is-hidden');
   // refs.onTrailer.classList.remove('is-hidden');
