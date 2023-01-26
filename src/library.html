@@ -6,7 +6,7 @@
     <title>My library</title>
 <link
       rel="shortcut icon"
-      href="./images/favicon.svg"
+      href="./images/favorite-icon.svg"
       type="image/svg+xml"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,10 +16,11 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./sass/index.scss" />
-    <script type="module" src="./index.js"></script>
+   
   </head>
   <body>
     <!-- ❗️❗️❗️ Add partials like so for every page -->
+    <include src="./partials/loader.html"></include>
     <include src="./partials/header-library.html"></include>
     <include src="./partials/main.html"></include>
     <include src="./partials/modal-film-info.html"></include>
@@ -27,5 +28,7 @@
     <include src="./partials/pagination.html"></include>
     <include src="./partials/footer.html"></include>
     <include src="./partials/modal-footer.html"></include>
+    <include src="./partials/btn-up.html"></include>
+     <script type="module" src="./library.js"></script>
   </body>
 </html>
