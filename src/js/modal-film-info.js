@@ -211,7 +211,7 @@ const onTrailerClick = async e => {
                             type="text/html" 
                             width="${widthV}" 
                             height="${heightV}"
-                            src="http://www.youtube.com/embed/${data.results[keys].key}?autoplay=1&fs=1&origin=http://example.com"
+                            src="https://www.youtube.com/embed/${data.results[keys].key}?autoplay=1&fs=1&origin=http://example.com"
                             frameborder="0" />`
       refs.trailerIf.innerHTML = trailerMarkup;
     }
