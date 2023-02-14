@@ -14,7 +14,6 @@ function getMoviesPagination() {
       filmList.page
     );
     pagination.on('afterMove', async event => {
-      console.log('test');
       const responseTrending = await movieApiMain.getPopularFilmList(
         event.page
       );

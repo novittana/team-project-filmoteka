@@ -36,8 +36,7 @@ async function renderPageLibrary(event) {
 }
 
 function renderAllList() {
-  document.querySelector('.gallery__container .gallery__card-list').innerHTML =
-    '';
+  document.querySelector('.gallery__container .gallery__card-list').innerHTML ='';
   let arrWatchedId = [];
   let arrQueueId = [];
   if (loadFromLS('filmWatched')) {
@@ -52,6 +51,7 @@ function renderAllList() {
   } else {
     const films = arrAllFilmsId.map(id => instance.getFilmFullInfo(id));
     Promise.all(films).then(response => {
+      watchedPagination(response);
       createGallery(response);
     });
   }
@@ -77,8 +77,7 @@ export function renderWatched() {
 }
 
 function renderQueue() {
-  document.querySelector('.gallery__container .gallery__card-list').innerHTML =
-    '';
+  document.querySelector('.gallery__container .gallery__card-list').innerHTML ='';
   const arrQueueId = loadFromLS('filmQueue');
   onQueueBtnClick();
   if (!arrQueueId || arrQueueId.length === 0) {
