@@ -14,7 +14,8 @@ const loadFromLS = key => {
   try {
     let filmState = localStorage.getItem(key);
     // console.log('filmState*', filmState);
-    return (filmState = JSON.parse(filmState) || undefined);
+    return filmState === null ? [] : JSON.parse(filmState);
+    // return (filmState = JSON.parse(filmState) || undefined);
   } catch (err) {
     console.error('Get state error: ', err);
   }
@@ -48,6 +49,7 @@ function renderAllList() {
   const arrAllFilmsId = [...arrWatchedId, ...arrQueueId];
   if (arrWatchedId.length === 0 && arrQueueId.length === 0) {
     showNothingInLibrary();
+    console.log("you need to fix")
   } else {
     const films = arrAllFilmsId.map(id => instance.getFilmFullInfo(id));
     Promise.all(films).then(response => {
