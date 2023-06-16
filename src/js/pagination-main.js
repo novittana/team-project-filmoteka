@@ -6,17 +6,18 @@ import { createPagination } from './pagination';
 let movieApiMain = new MovieAPI();
 
 function getMoviesPagination() {
-  if (document.querySelector('.menu__link-active').dataset.action === 'home') {
+  const homePage = document.querySelector('.menu__link-active');
+  if (homePage.dataset.action === 'home') {
     movieApiMain.getPopularFilmList().then(filmList => {
       const pagination = createPagination(
         filmList.total_results,
         filmList.results.length,
         7,
-        filmList.page
+        filmList.page,
       );
       pagination.on('afterMove', async event => {
         const responseTrending = await movieApiMain.getPopularFilmList(
-          event.page
+          event.page,
         );
         createGallery(responseTrending.results);
       });
@@ -27,7 +28,7 @@ function getMoviesPagination() {
 getMoviesPagination();
 
 export function watchedPagination(watched) {
-    const pagination = createPagination(watched.length, 20, 7, 1);
+  const pagination = createPagination(watched.length, 20, 7, 1);
   pagination.on('afterMove', async event => {
     const page = event.page - 1;
     createGallery(watched.slice(page * 20, (page + 1) * 20));

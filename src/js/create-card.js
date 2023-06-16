@@ -65,7 +65,9 @@ export function createGallery(results = []) {
       // console.log(idx, 'ID', id);
 
       // // жанри для галереї
-      const genreGallery = genres.slice(0, 2).map(el => el.name);
+      const genreGallery = genres.slice(0, 2).map(el => ' ' + el.name);
+
+
       // // жанри для меін, по списку ід дістаю їх назви з збереженого об'єкта genreList
       const genreMain = genre_ids.slice(0, 2).map(el => ' ' + genreList[el]);
 
@@ -83,32 +85,32 @@ export function createGallery(results = []) {
       // // визначаю активну сторінку, якщо відкрита library формую картку з рейтингом
       if (actionPage.dataset.action === 'library') {
         return `
-          <li class="card-list__item">
-            <a href="#" class="card-list_link" id="${id}">
-              <div class="card-list__img-box">
-                <img class="card-list__img" data-id="${id}" src="${poster}" alt=" ${title} ">
+          <li class='card-list__item'>
+            <a href='#' class='card-list_link' id='${id}'>
+              <div class='card-list__img-box'>
+                <img class='card-list__img' data-id='${id}' src='${poster}' alt=' ${title} '>
               </div>
-                <h3 class="card-list__title">${title}</h1>
-                <div class="card-list__info">
-                  <p class="card-list__text">${genreGallery} | ${
+                <h3 class='card-list__title'>${title}</h1>
+                <div class='card-list__info'>
+                  <p class='card-list__text'>${genreGallery} | ${
           year || ''
         } </p>
-                  <div class="card-list__rate-box">
-                    <p class="card-list__rate">${average}</p>
-                  </div> 
+                  <div class='card-list__rate-box'>
+                    <p class='card-list__rate'>${average}</p>
+                  </div>
                 </div>
             </a>
           </li>`;
       }
 
       return `
-        <li class="card-list__item">
-          <a href="#" class="card-list_link" id="${id}">
-            <div class="card-list__img-box">
-              <img class="card-list__img" data-id="${id}" src="${poster}" alt=" ${title} ">
+        <li class='card-list__item'>
+          <a href='#' class='card-list_link' id='${id}'>
+            <div class='card-list__img-box'>
+              <img class='card-list__img' data-id='${id}' src='${poster}' alt=' ${title} '>
             </div>
-            <h3 class="card-list__title">${title}</h3>
-            <p class="card-list__text">${genreMain} | ${year || ''} </p>
+            <h3 class='card-list__title'>${title}</h3>
+            <p class='card-list__text'>${genreMain} | ${year || ''} </p>
           </a>
         </li>`;
     })

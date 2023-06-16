@@ -4,7 +4,8 @@ export class MovieAPI {
   static BASE_URL = 'https://api.themoviedb.org/';
   static API_KEY = 'a95ff59f8d48ac961c2785119723c43c';
 
-  constructor() {}
+  constructor() {
+  }
 
   /**
    * getPopularFilmList description
@@ -18,7 +19,7 @@ export class MovieAPI {
           api_key: MovieAPI.API_KEY,
           page: page || 1,
         },
-      }
+      },
     );
 
     return response.data;
@@ -68,7 +69,7 @@ export class MovieAPI {
         params: {
           api_key: MovieAPI.API_KEY,
         },
-      }
+      },
     );
 
     return response.data;
@@ -83,7 +84,7 @@ export class MovieAPI {
             api_key: MovieAPI.API_KEY,
             language: 'en-US',
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {

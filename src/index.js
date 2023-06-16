@@ -4,9 +4,7 @@ import './js/movie-api';
 import './js/search-field';
 import './js/filter';
 import './js/create-card';
-// import './js/create-card-library';
 import './js/modal-film-info';
-import './js/modal-trailer';
 import './js/pagination';
 import './js/pagination-main'
 import './js/modal-footer';

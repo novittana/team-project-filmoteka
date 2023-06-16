@@ -27,12 +27,12 @@ function getMoviesByKeyWord(keyWord, page) {
   api
     .getFilmListByKeyWord(keyWord, page)
     .then(movies => { //Создание галереи по результатам запроса
-      if (movies.results.length === 0) {       
+      if (movies.results.length === 0) {
         cardListEl.innerHTML = '';
         notifyEl.insertAdjacentText('beforeend', 'Search result not successful. Enter the correct movie name.');
         return movies;
       }
-      
+
       createGallery(movies.results);
       return movies;
     })
@@ -42,7 +42,7 @@ function getMoviesByKeyWord(keyWord, page) {
           movies.total_results,
           movies.results.length,
           7,
-          movies.page
+          movies.page,
         );
         pagination.on('beforeMove', event => {
           getMoviesByKeyWord(keyWord, event.page);
